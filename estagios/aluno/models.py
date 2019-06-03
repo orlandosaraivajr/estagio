@@ -1,6 +1,5 @@
-from django.contrib.auth.models import User
 from django.db import models
-from estagios.core.models import TimeStampedModel
+from estagios.core.models import TimeStampedModel, User
 
 CHOICES_SEXO = (
     ('1','MASCULINO'),
@@ -49,7 +48,7 @@ CHOICES_ESTADOS_BRASILEIROS = (
 )
 
 class CadastroModel(TimeStampedModel):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     data_nascimento = models.DateTimeField(
         verbose_name='Data de Nascimento'
     )
@@ -91,6 +90,11 @@ class CadastroModel(TimeStampedModel):
         blank=True
     )
 
+    def save(self, *args, **kwargs):
+        self.user.is_student = True
+        super(CadastroModel, self).save(*args, **kwargs)
+
+
 
 class ContatoModel(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -129,3 +133,7 @@ class ContatoModel(TimeStampedModel):
         choices=CHOICES_ESTADOS_BRASILEIROS,
         default='SP'
     )
+
+    def save(self, *args, **kwargs):
+        self.user.is_student = True
+        super(ContatoModel, self).save(*args, **kwargs)

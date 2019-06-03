@@ -1,11 +1,12 @@
 from datetime import datetime
 
 import pytz
-from django.contrib.auth.models import User
+
 from django.test import TestCase
 
 from estagios.aluno.models import CadastroModel, CHOICES_DEFICIENCIA, CHOICES_SEXO, ContatoModel, \
     CHOICES_ESTADOS_BRASILEIROS
+from estagios.core.models import User
 
 
 def userBuilder():
@@ -70,6 +71,15 @@ class CadastroModelTest(TestCase):
         telefone_recado = self.cadastro.telefone_recado
         self.assertEqual(telefone_recado, '')
 
+    def test_usuario_estudante(self):
+        self.assertTrue(self.user.is_student)
+
+    def test_usuario_nao_eh_professor(self):
+        self.assertFalse(self.user.is_teacher)
+
+    def test_usuario_nao_eh_empresa(self):
+        self.assertFalse(self.user.is_worker)
+
 class ContatoModelTest(TestCase):
     def setUp(self):
         self.user = userBuilder()
@@ -131,3 +141,12 @@ class ContatoModelTest(TestCase):
     def test_estado_padrao(self):
         estado = dict(CHOICES_ESTADOS_BRASILEIROS)[self.cadastro.endereco_estado]
         self.assertEqual(estado, 'São Paulo')
+
+    def test_usuario_estudante(self):
+        self.assertTrue(self.user.is_student)
+
+    def test_usuario_nao_eh_professor(self):
+        self.assertFalse(self.user.is_teacher)
+
+    def test_usuario_nao_eh_empresa(self):
+        self.assertFalse(self.user.is_worker)
