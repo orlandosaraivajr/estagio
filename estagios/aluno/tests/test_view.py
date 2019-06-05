@@ -1,8 +1,21 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.shortcuts import resolve_url as r
+
+from estagios.core.models import User
+
 
 class alunoGetHome(TestCase):
     def setUp(self):
+        self.username = 'admin'
+        self.password = '123mudar'
+        self.client = Client()
+        User.objects.create_user(
+            self.username,
+            'admin@admin.com',
+            self.password)
+        self.client.login(username=self.username,
+                          password=self.password)
+
         self.resp = self.client.get(r('aluno:aluno_home'))
 
     def test_template_home(self):

@@ -1,12 +1,11 @@
-
-
+from django.contrib.auth import get_user_model
 from django.test import TestCase
-
 from estagios.core.models import User
 
 
 class UserModelTest(TestCase):
     def setUp(self):
+        User = get_user_model()
         self.cadastro = User(
             username='orlandosaraivajr',
             email='orlandosaraivajr@gmail.com',
