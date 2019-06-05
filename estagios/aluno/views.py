@@ -4,6 +4,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+
 @login_required
 def home(request):
     context = {}
@@ -30,11 +31,12 @@ def logout(request):
     auth_logout(request)
     return render(request, 'aluno_login.html')
 
+
 def cadastro_dados_pessoais(request):
     context = {}
     return render(request, 'aluno_cadastro.html', context)
 
+
 def esqueceu_senha(request):
     context = {}
     return render(request, 'aluno_cadastro.html', context)
-

@@ -1,395 +1,471 @@
 body, html {
-	font-family: 'Open Sans', sans-serif;
-	text-rendering: optimizeLegibility !important;
-	-webkit-font-smoothing: antialiased !important;
-	color: #777;
-	width: 100% !important;
-	height: 100% !important;
-}
-h1 {
-	font-weight: 700;
-}
-h1 strong {
-	font-weight: 900;
-}
-h2 {
-	text-transform: uppercase;
-	line-height: 20px;
-	font-weight: 600;
-	margin: 0;
-	color: #555;
-}
-h3 {
-	font-size: 16px;
-	font-weight: 700;
-	color: #555;
-}
-h4 {
-	font-weight: 500;
-	color: #555;
-}
-h5 {
-	text-transform: uppercase;
-	font-weight: 700;
-	line-height: 20px;
-}
-p {
-	font-size: 14px;
-}
-a {
-	color: #754747;
-}
-a:hover, a:focus {
-	text-decoration: none;
-	color: #F4D03F;
-}
-ul, ol {
-	list-style: none;
-}
-.clearfix:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-}
-.clearfix {
-	display: inline-block;
-}
-* html .clearfix {
-	height: 1%;
-}
-.clearfix {
-	display: block;
-}
-#preloader {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #ddd;
-	z-index: 99999;
-	height: 100%;
-}
-#status {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 64px;
-	height: 64px;
-	margin: -32px 0 0 -32px;
-	padding: 0;
-}
-ul, ol {
-	padding: 0;
-	webkit-padding: 0;
-	moz-padding: 0;
-}
-hr {
-	height: 4px;
-	width: 70px;
-	text-align: center;
-	position: relative;
-	background: #E75926;
-	margin: 0 auto;
-	margin-bottom: 30px;
-	border: 0;
-}
-/* Navigation ========================================================================== */
-.navbar-custom {
-	padding: 0;
-	border-bottom: 0;
-	letter-spacing: 1px;
-	background: #333;
-	text-transform: uppercase;
-}
-.navbar-custom .navbar-brand {
-	font-weight: 600;
-}
-.navbar-custom .navbar-brand i.fa {
-	color: #E75926;
-}
-.navbar-custom .navbar-brand:focus {
-	outline: 0;
-}
-.navbar-custom .navbar-toggle {
-	color: #eee;
-	font-size: 18px;
-	border-radius: 2px;
-	padding: 0 4px;
-}
-.navbar-custom .navbar-toggle:hover, .navbar-custom .navbar-toggle:focus {
-	background-color: #E75926;
-	color: #ffffff;
-}
-.navbar-custom .navbar-brand .navbar-toggle:focus, .navbar-custom .navbar-brand .navbar-toggle:active {
-	outline: 0;
-}
-.navbar-custom a {
-	color: #fff;
-}
-.navbar-custom .nav li a {
-	-webkit-transition: background .3s ease-in-out;
-	-moz-transition: background .3s ease-in-out;
-	transition: background .3s ease-in-out;
-}
-.navbar-custom .nav li a:hover {
-	outline: 0;
-	color: #E75926;
-	background-color: transparent;
-}
-.navbar-custom .nav li a:focus, .navbar-custom .nav li a:active {
-	outline: 0;
-	background-color: transparent;
-	color: #E75926;
-}
-.navbar-custom .nav li.active {
-	outline: 0;
-}
-.navbar-custom .nav li.active a {
-	background-color: rgba(255,255,255,.3);
-}
-.navbar-custom .nav li.active a:hover {
-	color: #fff;
-}
-/* Home Section ========================================================================== */
-#intro {
-	display: table;
-	width: 100%;
-	height: auto;
-	padding: 100px 0;
-	text-align: center;
-	color: #fff;
-	background: url(../img/intro-bg.jpg) no-repeat center center fixed;
-	background-color: #000;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	background-size: cover;
-	-o-background-size: cover;
-}
-#intro .intro-body {
-	display: table-cell;
-	vertical-align: middle;
-}
-#intro .intro-body H1 {
-	font-size: 76px;
-	font-weight: 700;
-	color: rgba(255,255,255,0.8);
-	text-transform: uppercase;
-}
-#intro .intro-body .brand-heading {
-	color: #E75926;
-	text-shadow: 0 4px #a13e1a;
-}
-#intro .intro-body .intro-text {
-	font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    color: #777;
+    width: 100% !important;
+    height: 100% !important;
 }
 
-@media(min-width:768px) {
+h1 {
+    font-weight: 700;
+}
+
+h1 strong {
+    font-weight: 900;
+}
+
+h2 {
+    text-transform: uppercase;
+    line-height: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: #555;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #555;
+}
+
+h4 {
+    font-weight: 500;
+    color: #555;
+}
+
+h5 {
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+p {
+    font-size: 14px;
+}
+
+a {
+    color: #754747;
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+    color: #F4D03F;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ddd;
+    z-index: 99999;
+    height: 100%;
+}
+
+#status {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    padding: 0;
+}
+
+ul, ol {
+    padding: 0;
+    webkit-padding: 0;
+    moz-padding: 0;
+}
+
+hr {
+    height: 4px;
+    width: 70px;
+    text-align: center;
+    position: relative;
+    background: #E75926;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    border: 0;
+}
+
+/* Navigation ========================================================================== */
+.navbar-custom {
+    padding: 0;
+    border-bottom: 0;
+    letter-spacing: 1px;
+    background: #333;
+    text-transform: uppercase;
+}
+
+.navbar-custom .navbar-brand {
+    font-weight: 600;
+}
+
+.navbar-custom .navbar-brand i.fa {
+    color: #E75926;
+}
+
+.navbar-custom .navbar-brand:focus {
+    outline: 0;
+}
+
+.navbar-custom .navbar-toggle {
+    color: #eee;
+    font-size: 18px;
+    border-radius: 2px;
+    padding: 0 4px;
+}
+
+.navbar-custom .navbar-toggle:hover, .navbar-custom .navbar-toggle:focus {
+    background-color: #E75926;
+    color: #ffffff;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle:focus, .navbar-custom .navbar-brand .navbar-toggle:active {
+    outline: 0;
+}
+
+.navbar-custom a {
+    color: #fff;
+}
+
+.navbar-custom .nav li a {
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+.navbar-custom .nav li a:hover {
+    outline: 0;
+    color: #E75926;
+    background-color: transparent;
+}
+
+.navbar-custom .nav li a:focus, .navbar-custom .nav li a:active {
+    outline: 0;
+    background-color: transparent;
+    color: #E75926;
+}
+
+.navbar-custom .nav li.active {
+    outline: 0;
+}
+
+.navbar-custom .nav li.active a {
+    background-color: rgba(255, 255, 255, .3);
+}
+
+.navbar-custom .nav li.active a:hover {
+    color: #fff;
+}
+
+/* Home Section ========================================================================== */
 #intro {
-	height: 100%;
-	padding: 0;
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: #fff;
+    background: url(../img/intro-bg.jpg) no-repeat center center fixed;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
+
+#intro .intro-body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#intro .intro-body H1 {
+    font-size: 76px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+}
+
+#intro .intro-body .brand-heading {
+    color: #E75926;
+    text-shadow: 0 4px #a13e1a;
+}
+
 #intro .intro-body .intro-text {
-	font-size: 18px;
-	letter-spacing: 1px;
-	margin-bottom: 100px;
-	color: rgba(255,255,255,0.9);
+    font-size: 18px;
 }
+
+@media (min-width: 768px) {
+    #intro {
+        height: 100%;
+        padding: 0;
+    }
+
+    #intro .intro-body .intro-text {
+        font-size: 18px;
+        letter-spacing: 1px;
+        margin-bottom: 100px;
+        color: rgba(255, 255, 255, 0.9);
+    }
 }
+
 .btn-default {
-	color: #f6f6f6;
-	background: #cf5022;
-	border: 0;
-	padding: 12px 24px;
-	margin: 0 8px;
-	font-size: 18px;
-	transition: all 0.5s;
+    color: #f6f6f6;
+    background: #cf5022;
+    border: 0;
+    padding: 12px 24px;
+    margin: 0 8px;
+    font-size: 18px;
+    transition: all 0.5s;
 }
+
 .btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
-	color: #f6f6f6;
-	background-color: #a13e1a;
+    color: #f6f6f6;
+    background-color: #a13e1a;
 }
+
 .section-title.center {
-	padding: 30px 0;
+    padding: 30px 0;
 }
+
 .section-title h2, .section-title.center h2 {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
 }
+
 /* About Section ========================================================================== */
 #about {
-	padding: 140px 0;
-	background: #f6f6f6;
+    padding: 140px 0;
+    background: #f6f6f6;
 }
+
 #about .about-text {
-	margin-left: 10px;
+    margin-left: 10px;
 }
+
 #about H4 {
-	font-size: 20px;
+    font-size: 20px;
 }
+
 #about li {
-	margin-bottom: 3px;
-	list-style: none;
-	padding: 0;
-	font-size: 13px;
+    margin-bottom: 3px;
+    list-style: none;
+    padding: 0;
+    font-size: 13px;
 }
+
 #about li:before {
-	content: "✓";
-	font-weight: 600;
-	padding-right: 10px;
-	color: #e75926;
+    content: "✓";
+    font-weight: 600;
+    padding-right: 10px;
+    color: #e75926;
 }
+
 #about i.fa {
-	float: left;
-	display: block;
-	margin-right: 15px;
-	color: #fff;
-	font-size: 44px;
-	text-shadow: 0 0 1px #666;
+    float: left;
+    display: block;
+    margin-right: 15px;
+    color: #fff;
+    font-size: 44px;
+    text-shadow: 0 0 1px #666;
 }
+
 #about img {
-	margin-top: 20px;
+    margin-top: 20px;
 }
+
 #about p {
-	margin-top: 20px;
-	margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
+
 /* Alunos Section ========================================================================== */
 #alunos {
-	padding: 140px 0;
-	background: url(../img/services-bg.jpg);
-	background-size: cover;
-	background-attachment: fixed;
+    padding: 140px 0;
+    background: url(../img/services-bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
 }
+
 #alunos .service {
-	padding: 20px 10px;
+    padding: 20px 10px;
 }
+
 #alunos h2 {
-	color: #f6f6f6;
+    color: #f6f6f6;
 }
+
 #alunos h3 {
-	font-size: 20px;
-	font-weight: 600;
-	color: #f6f6f6;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f6f6f6;
 }
+
 #alunos p {
-	color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
 }
+
 .space {
-	margin-top: 40px;
+    margin-top: 40px;
 }
+
 #alunos i.fa {
-	font-size: 36px;
-	color: #E75926;
-	transition: all 0.5s;
+    font-size: 36px;
+    color: #E75926;
+    transition: all 0.5s;
 }
 
 /* Team Section ========================================================================== */
 #team {
-	padding: 140px 0;
-	background: #e6e6e6;
+    padding: 140px 0;
+    background: #e6e6e6;
 }
+
 img.img-thumbnail.team-img {
-	width: 200px;
-	height: 200px;
-	border: 0;
-	border-radius: 0;
-	background-color: #f6f6f6;
+    width: 200px;
+    height: 200px;
+    border: 0;
+    border-radius: 0;
+    background-color: #f6f6f6;
 }
+
 #team .thumbnail {
-	background: transparent;
-	border: 0;
+    background: transparent;
+    border: 0;
 }
+
 #team .thumbnail .caption {
-	padding: 9px;
-	color: #777;
+    padding: 9px;
+    color: #777;
 }
+
 /* Professores Section ========================================================================== */
 #professores {
-	padding: 140px 0;
-	background: url(../img/testimonials-bg.jpg);
-	background-size: cover;
-	background-attachment: fixed;
+    padding: 140px 0;
+    background: url(../img/testimonials-bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
 }
+
 #professores .service {
-	padding: 20px 10px;
+    padding: 20px 10px;
 }
+
 #professores h2 {
-	color: #f6f6f6;
+    color: #f6f6f6;
 }
+
 #professores h3 {
-	font-size: 20px;
-	font-weight: 600;
-	color: #f6f6f6;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f6f6f6;
 }
+
 #professores p {
-	color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
 }
+
 .space {
-	margin-top: 40px;
+    margin-top: 40px;
 }
+
 #professores i.fa {
-	font-size: 36px;
-	color: #E75926;
-	transition: all 0.5s;
+    font-size: 36px;
+    color: #E75926;
+    transition: all 0.5s;
 }
+
 /* Empresas Section ========================================================================== */
 #empresas {
-	background: url(../img/empresas-bg.jpg);
-	background-size: cover;
-	background-attachment: fixed;
-	color: #ddd;
-	padding: 140px 0;
+    background: url(../img/empresas-bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    color: #ddd;
+    padding: 140px 0;
 }
+
 #empresas h2 {
-	color: #f6f6f6;
+    color: #f6f6f6;
 }
+
 #empresas blockquote {
-	position: relative;
-	margin-top: 20px;
-	border: 0;
-	text-align: center;
-	color: rgba(255,255,255,0.8);
+    position: relative;
+    margin-top: 20px;
+    border: 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
 }
+
 #empresas i {
-	font-size: 24px;
-	color: rgba(255,255,255,0.3);
-	margin-bottom: 14px;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 14px;
 }
+
 #empresas .clients-name {
-	display: inline-block;
-	border-top: 1px solid rgba(255,255,255,0.3);
-	padding: 20px 0;
-	margin-top: 10px;
+    display: inline-block;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px 0;
+    margin-top: 10px;
 }
+
 /* Footer Section ========================================================================== */
 #footer {
-	background: #333;
-	color: #777;
-	padding: 20px 0;
-	text-align: center;
+    background: #333;
+    color: #777;
+    padding: 20px 0;
+    text-align: center;
 }
+
 #footer a {
-	color: #999999;
+    color: #999999;
 }
+
 #footer a:hover, a:focus {
-	color: #e75926;
+    color: #e75926;
 }
+
 #footer p {
-	font-size: 13px;
-	margin-top: 10px;
+    font-size: 13px;
+    margin-top: 10px;
 }
 
 @media (max-width: 768px) {
-.hover-bg .hover-text {
-	padding: 20%;
-}
+    .hover-bg .hover-text {
+        padding: 20%;
+    }
 }
 
 @media (max-width: 640px) {
-#intro .intro-body H1 {
-	font-size: 5em;
-}
+    #intro .intro-body H1 {
+        font-size: 5em;
+    }
 }

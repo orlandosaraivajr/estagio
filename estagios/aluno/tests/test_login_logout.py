@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase, Client
 from django.shortcuts import resolve_url as r
+from django.test import Client, TestCase
+
 
 class HomeGetRedirectTest(TestCase):
     def setUp(self):
@@ -29,7 +30,7 @@ class LoginTemplateGetTest(TestCase):
             ('</label>', 3),
             ('submit', 1),
             ('button', 2),
-        )
+            )
         for text, count in tags:
             with self.subTest():
                 self.assertContains(self.resp, text, count)
@@ -87,7 +88,7 @@ class LoginPostTestFail(TestCase):
             ('</label>', 3),
             ('submit', 1),
             ('button', 2)
-        )
+            )
         for text, count in tags:
             with self.subTest():
                 self.assertContains(self.resp, text, count)

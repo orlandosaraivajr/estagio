@@ -1,11 +1,11 @@
 from datetime import datetime
 
 import pytz
-
 from django.test import TestCase
 
-from estagios.aluno.models import CadastroModel, CHOICES_DEFICIENCIA, CHOICES_SEXO, ContatoModel, \
-    CHOICES_ESTADOS_BRASILEIROS
+from estagios.aluno.models import (
+    CHOICES_DEFICIENCIA, CHOICES_ESTADOS_BRASILEIROS, CHOICES_SEXO, CadastroModel, ContatoModel,
+    )
 from estagios.core.models import User
 
 
@@ -16,7 +16,8 @@ def userBuilder():
         password='segredo',
         first_name='Orlando',
         last_name='Saraiva Jr',
-    )
+        )
+
 
 class CadastroModelTest(TestCase):
     def setUp(self):
@@ -24,20 +25,20 @@ class CadastroModelTest(TestCase):
         self.nascimento = datetime(1981, 12, 30, 10, 20, 10, 127325, tzinfo=pytz.UTC)
         self.cadastro = CadastroModel(
             user=self.user,
-            data_nascimento = self.nascimento,
-            sobre_voce = 'O melhor profissional do mundo',
-            objetivos_profissionais = 'Quero dominar o mundo',
-        )
+            data_nascimento=self.nascimento,
+            sobre_voce='O melhor profissional do mundo',
+            objetivos_profissionais='Quero dominar o mundo',
+            )
         self.cadastro.save()
 
     def test_created(self):
         self.assertTrue(CadastroModel.objects.exists())
 
     def test_created_at(self):
-        self.assertIsInstance(self.cadastro.criado_em , datetime)
+        self.assertIsInstance(self.cadastro.criado_em, datetime)
 
     def test_modified_at(self):
-        self.assertIsInstance(self.cadastro.modificado_em , datetime)
+        self.assertIsInstance(self.cadastro.modificado_em, datetime)
 
     def test_data_nascimento(self):
         data_nascimento = self.cadastro.data_nascimento
@@ -80,6 +81,7 @@ class CadastroModelTest(TestCase):
     def test_usuario_nao_eh_empresa(self):
         self.assertFalse(self.user.is_worker)
 
+
 class ContatoModelTest(TestCase):
     def setUp(self):
         self.user = userBuilder()
@@ -89,22 +91,22 @@ class ContatoModelTest(TestCase):
             linkedin="http://www.linkedIn.com",
             facebook="http://www.facebook.com.br",
             endereco='Rua XYZ',
-            endereco_numero = '150',
+            endereco_numero='150',
             # endereco_complemento = '',
-            endereco_cidade = 'Rio Claro',
+            endereco_cidade='Rio Claro',
             # endereco_estado = 'SP',
 
-        )
+            )
         self.cadastro.save()
 
     def test_created(self):
         self.assertTrue(ContatoModel.objects.exists())
 
     def test_created_at(self):
-        self.assertIsInstance(self.cadastro.criado_em , datetime)
+        self.assertIsInstance(self.cadastro.criado_em, datetime)
 
     def test_modified_at(self):
-        self.assertIsInstance(self.cadastro.modificado_em , datetime)
+        self.assertIsInstance(self.cadastro.modificado_em, datetime)
 
     def test_github(self):
         github = self.cadastro.github

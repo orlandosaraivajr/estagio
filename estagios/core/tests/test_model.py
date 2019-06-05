@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+
 from estagios.core.models import User
 
 
@@ -12,7 +13,7 @@ class UserModelTest(TestCase):
             password='segredo',
             first_name='Orlando',
             last_name='Saraiva Jr',
-        )
+            )
         self.cadastro.save()
 
     def test_created(self):
@@ -46,4 +47,3 @@ class UserModelTest(TestCase):
 
     def test_empresa(self):
         self.assertFalse(self.cadastro.is_worker)
-

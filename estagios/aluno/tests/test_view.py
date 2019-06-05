@@ -1,5 +1,5 @@
-from django.test import TestCase, Client
 from django.shortcuts import resolve_url as r
+from django.test import Client, TestCase
 
 from estagios.core.models import User
 
@@ -30,13 +30,14 @@ class alunoGetHome(TestCase):
             ('Dashboard', 2),
             ('Charts', 1),
             ('New Messages!', 1),
-            ('New Tasks!', 1),
-        )
+            ('New Tasks!', 1)
+            )
         for text, count in tags:
             with self.subTest():
                 self.assertContains(self.resp, text, count)
 
-class alunoGetCadastro(TestCase):
+
+class Aluno_get_cadastro(TestCase):
     def setUp(self):
         self.resp = self.client.get(r('aluno:aluno_cadastro_dados_pessoais'))
 
@@ -51,7 +52,7 @@ class alunoGetCadastro(TestCase):
             ('Start Bootstrap', 1),
             ('Dashboard', 2),
             ('Charts', 1),
-        )
+            )
         for text, count in tags:
             with self.subTest():
                 self.assertContains(self.resp, text, count)
