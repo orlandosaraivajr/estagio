@@ -45,11 +45,32 @@ class LoginPostTest(TestCase):
         User.objects.create_user(
             self.username,
             'admin@admin.com',
-            self.password)
+            self.password,
+            is_student=True)
         data = {}
         data['username'] = self.username
         data['password'] = self.password
         self.resp = self.client.post(r('aluno:aluno_login'), data)
+
+    def test_302_response(self):
+        self.assertEqual(302, self.resp.status_code)
+
+
+class LoginPostTest_follow(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.username = 'admin'
+        self.password = '123mudar'
+        self.client = Client()
+        User.objects.create_user(
+            self.username,
+            'admin@admin.com',
+            self.password,
+            is_student=True)
+        data = {}
+        data['username'] = self.username
+        data['password'] = self.password
+        self.resp = self.client.post(r('aluno:aluno_login'), data, follow=True)
 
     def test_template_used(self):
         self.assertTemplateUsed(self.resp, 'aluno_index.html')

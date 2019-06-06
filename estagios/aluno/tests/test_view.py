@@ -4,7 +4,7 @@ from django.test import Client, TestCase
 from estagios.core.models import User
 
 
-class alunoGetHome(TestCase):
+class AlunoAuthGetHome(TestCase):
     def setUp(self):
         self.username = 'admin'
         self.password = '123mudar'
@@ -12,7 +12,8 @@ class alunoGetHome(TestCase):
         User.objects.create_user(
             self.username,
             'admin@admin.com',
-            self.password)
+            self.password,
+            is_student=True)
         self.client.login(username=self.username,
                           password=self.password)
 
@@ -37,7 +38,33 @@ class alunoGetHome(TestCase):
                 self.assertContains(self.resp, text, count)
 
 
-class Aluno_get_cadastro(TestCase):
+class NotAlunoGetHome(TestCase):
+    def setUp(self):
+        self.username = 'admin'
+        self.password = '123mudar'
+        self.client = Client()
+        User.objects.create_user(
+            self.username,
+            'admin@admin.com',
+            self.password,
+            is_student=False)
+        self.client.login(username=self.username,
+                          password=self.password)
+        self.resp = self.client.get(r('aluno:aluno_home'))
+
+    def test_302_template_home(self):
+        self.assertEqual(302, self.resp.status_code)
+
+
+class AnonymousGetHome(TestCase):
+    def setUp(self):
+        self.resp = self.client.get(r('aluno:aluno_home'))
+
+    def test_302_template_home(self):
+        self.assertEqual(302, self.resp.status_code)
+
+
+class AlunoGetCadastro(TestCase):
     def setUp(self):
         self.resp = self.client.get(r('aluno:aluno_cadastro_dados_pessoais'))
 

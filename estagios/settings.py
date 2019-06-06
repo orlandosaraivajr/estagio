@@ -102,6 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = '/alunos/login/'
 LOGOUT_URL = '/alunos/logout/'
+HOME_URL = '/'
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
