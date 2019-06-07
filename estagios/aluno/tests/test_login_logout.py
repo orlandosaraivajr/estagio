@@ -3,14 +3,6 @@ from django.shortcuts import resolve_url as r
 from django.test import Client, TestCase
 
 
-class HomeGetRedirectTest(TestCase):
-    def setUp(self):
-        self.resp = self.client.get(r('aluno:aluno_home'))
-
-    def test_302_response(self):
-        self.assertEqual(302, self.resp.status_code)
-
-
 class LoginTemplateGetTest(TestCase):
     def setUp(self):
         self.resp = self.client.get(r('aluno:aluno_login'))
@@ -30,7 +22,7 @@ class LoginTemplateGetTest(TestCase):
             ('</label>', 3),
             ('submit', 1),
             ('button', 2),
-            )
+        )
         for text, count in tags:
             with self.subTest():
                 self.assertContains(self.resp, text, count)
@@ -39,37 +31,29 @@ class LoginTemplateGetTest(TestCase):
 class LoginPostTest(TestCase):
     def setUp(self):
         User = get_user_model()
-        self.username = 'admin'
-        self.password = '123mudar'
         self.client = Client()
         User.objects.create_user(
-            self.username,
+            'admin',
             'admin@admin.com',
-            self.password,
+            '123',
             is_student=True)
-        data = {}
-        data['username'] = self.username
-        data['password'] = self.password
+        data = {'username': 'admin', 'password': '123'}
         self.resp = self.client.post(r('aluno:aluno_login'), data)
 
     def test_302_response(self):
         self.assertEqual(302, self.resp.status_code)
 
 
-class LoginPostTest_follow(TestCase):
+class LoginPostTestFollow(TestCase):
     def setUp(self):
         User = get_user_model()
-        self.username = 'admin'
-        self.password = '123mudar'
         self.client = Client()
         User.objects.create_user(
-            self.username,
+            'admin',
             'admin@admin.com',
-            self.password,
+            '123',
             is_student=True)
-        data = {}
-        data['username'] = self.username
-        data['password'] = self.password
+        data = {'username': 'admin', 'password': '123'}
         self.resp = self.client.post(r('aluno:aluno_login'), data, follow=True)
 
     def test_template_used(self):
@@ -82,16 +66,12 @@ class LoginPostTest_follow(TestCase):
 class LoginPostTestFail(TestCase):
     def setUp(self):
         User = get_user_model()
-        self.username = 'admin'
-        self.password = '123mudar'
         self.client = Client()
         User.objects.create_user(
-            self.username,
+            'admin',
             'admin@admin.com',
-            self.password)
-        data = {}
-        data['username'] = 'usuario_errado'
-        data['password'] = 'senha_errada'
+            '123')
+        data = {'username': 'admin', 'password': 'senha_errada'}
         self.resp = self.client.post(r('aluno:aluno_login'), data)
 
     def test_template_used(self):
@@ -109,7 +89,7 @@ class LoginPostTestFail(TestCase):
             ('</label>', 3),
             ('submit', 1),
             ('button', 2)
-            )
+        )
         for text, count in tags:
             with self.subTest():
                 self.assertContains(self.resp, text, count)

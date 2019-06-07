@@ -14,7 +14,7 @@ def area_student(function=None, redirect_url=None):
             else:
                 return redirect(redirect_url)
         else:
-            return redirect(redirect_url)
+            return redirect(settings.LOGIN_ALUNO_URL)
 
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__

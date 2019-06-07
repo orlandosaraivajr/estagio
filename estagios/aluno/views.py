@@ -33,7 +33,8 @@ def logout(request):
     auth_logout(request)
     return render(request, 'aluno_login.html')
 
-
+@area_student
+@login_required
 def cadastro_dados_pessoais(request):
     context = {}
     return render(request, 'aluno_cadastro.html', context)
