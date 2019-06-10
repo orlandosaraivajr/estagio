@@ -1,32 +1,18 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from estagios.core.decorators import area_student
-
-
-@area_student
-@login_required
-def home(request):
-    context = {}
-    return render(request, 'aluno_index.html', context)
+from estagios.core.functions import auth_request
 
 
 def login(request):
     if request.method == "GET":
         return render(request, 'aluno_login.html')
     else:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            auth_login(request, user)
+        if auth_request(request):
             return redirect('aluno:aluno_home')
         else:
-            context = {'acesso_negado': True}
-            return render(request, 'aluno_login.html', context)
+            return render(request, 'aluno_login.html')
 
 
 def logout(request):
@@ -34,10 +20,15 @@ def logout(request):
     return render(request, 'aluno_login.html')
 
 @area_student
-@login_required
 def cadastro_dados_pessoais(request):
     context = {}
     return render(request, 'aluno_cadastro.html', context)
+
+
+@area_student
+def home(request):
+    context = {}
+    return render(request, 'aluno_index.html', context)
 
 
 def esqueceu_senha(request):
