@@ -64,7 +64,7 @@ class AlunoGet(TestCase):
         self.client = Client()
         User.objects.create_user(
             'admin',
-            'admin@admin.com',
+            'eu@me.com',
             '123',
             is_student=True)
         self.client.login(username='admin', password='123')
@@ -97,7 +97,7 @@ class NotAlunoGet(TestCase):
         self.client = Client()
         User.objects.create_user(
             'admin',
-            'admin@admin.com',
+            'eu@me.com',
             '123',
             is_student=False)
         self.client.login(username='admin', password='123')
@@ -121,7 +121,7 @@ class NotAlunoGetFollow(TestCase):
         self.client = Client()
         User.objects.create_user(
             'admin',
-            'admin@admin.com',
+            'eu@me.com',
             '123',
             is_student=False)
         self.client.login(username='admin', password='123')

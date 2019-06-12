@@ -13,7 +13,7 @@ class UserModelTest(TestCase):
             password='segredo',
             first_name='Orlando',
             last_name='Saraiva Jr',
-            )
+        )
         self.cadastro.save()
 
     def test_created(self):

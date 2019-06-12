@@ -34,10 +34,10 @@ class LoginPostTest(TestCase):
         self.client = Client()
         User.objects.create_user(
             'admin',
-            'admin@admin.com',
+            'eu@me.com',
             '123',
             is_student=True)
-        data = {'username': 'admin', 'password': '123'}
+        data = {'username': 'eu@me.com', 'password': '123'}
         self.resp = self.client.post(r('aluno:aluno_login'), data)
 
     def test_302_response(self):
@@ -50,10 +50,10 @@ class LoginPostTestFollow(TestCase):
         self.client = Client()
         User.objects.create_user(
             'admin',
-            'admin@admin.com',
+            'eu@me.com',
             '123',
             is_student=True)
-        data = {'username': 'admin', 'password': '123'}
+        data = {'username': 'eu@me.com', 'password': '123'}
         self.resp = self.client.post(r('aluno:aluno_login'), data, follow=True)
 
     def test_template_used(self):
@@ -69,9 +69,9 @@ class LoginPostTestFail(TestCase):
         self.client = Client()
         User.objects.create_user(
             'admin',
-            'admin@admin.com',
+            'eu@me.com',
             '123')
-        data = {'username': 'admin', 'password': 'senha_errada'}
+        data = {'username': 'eu@me.com', 'password': 'senha_errada'}
         self.resp = self.client.post(r('aluno:aluno_login'), data)
 
     def test_template_used(self):
@@ -82,6 +82,11 @@ class LoginPostTestFail(TestCase):
 
     def test_labels_html(self):
         tags = (
+            ('Login', 2),
+            ('<input', 4),
+            ('<input type="hidden"', 1),
+            ('<input type="email"', 1),
+            ('<input type="password"', 1),
             ('<form', 1),
             ('</form>', 1),
             ('<input', 4),

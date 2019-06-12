@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('core', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ]
+    ]
 
     operations = [
         migrations.CreateModel(
@@ -35,11 +35,11 @@ class Migration(migrations.Migration):
                 ('telefone', models.CharField(blank=True, max_length=16, verbose_name='Telefone')),
                 ('celular', models.CharField(blank=True, max_length=16, verbose_name='Celular')),
                 ('telefone_recado', models.CharField(blank=True, max_length=16, verbose_name='Telefone para recados')),
-                ],
+            ],
             options={
                 'abstract': False,
-                },
-            ),
+            },
+        ),
         migrations.CreateModel(
             name='ContatoModel',
             fields=[
@@ -67,9 +67,9 @@ class Migration(migrations.Migration):
                 (
                     'user',
                     models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ],
+            ],
             options={
                 'abstract': False,
-                },
-            ),
-        ]
+            },
+        ),
+    ]
