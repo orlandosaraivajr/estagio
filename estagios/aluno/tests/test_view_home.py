@@ -26,11 +26,12 @@ class AlunoGet(TestCase):
 
     def test_html_template(self):
         tags = (
-            ('Start Bootstrap', 1),
-            ('Dashboard', 2),
-            ('Charts', 1),
-            ('New Messages!', 1),
-            ('New Tasks!', 1)
+            ('Estágio Nota 10', 1),
+            ('Contato', 1),
+            ('Faculdade', 1),
+            ('Outros cursos', 1),
+            ('Empregos Anteriores', 1),
+            ('Sair', 3)
         )
         for text, count in tags:
             with self.subTest():
