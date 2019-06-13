@@ -28,13 +28,12 @@ def auth_request(request):
         return False
 
 
-def registro_novo_aluno(request):
-    try:
-        email = request.POST['username']
-        password = request.POST['password']
-    except:
+def registro_novo_aluno(email=None, password=None):
+    if email and password:
+        User = get_user_model()
+        novo_aluno = User.objects.create_user(
+            email, email, password, is_student=True)
+        novo_aluno.save()
+        return True
+    else:
         return False
-    User = get_user_model()
-    novo_aluno = User.objects.create_user(
-        email, email, password, is_student=True)
-    novo_aluno.save()

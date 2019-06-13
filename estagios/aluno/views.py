@@ -29,8 +29,13 @@ def cadastro_inicial(request):
 
 
 def efetivar_cadastro_aluno(request):
-    registro_novo_aluno(request)
-    if auth_request(request):
+    try:
+        email = request.POST['username']
+        password = request.POST['password']
+    except:
+        return render(request, 'aluno_login.html')
+    if registro_novo_aluno(email, password):
+        auth_request(request)
         return redirect('aluno:aluno_home')
     else:
         return render(request, 'aluno_login.html')
