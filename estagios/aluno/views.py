@@ -42,12 +42,15 @@ def efetivar_cadastro_aluno(request):
         else:
             return render(request, 'aluno_login.html')
 
+@area_student
+def home(request):
+    context = {}
+    return render(request, 'aluno_index.html', context)
 
 @area_student
 def sobre_mim(request):
     context = {}
     return render(request, 'aluno_sobre_mim.html', context)
-
 
 @area_student
 def cadastro_contato(request):
@@ -56,9 +59,24 @@ def cadastro_contato(request):
 
 
 @area_student
-def home(request):
+def cadastro_faculdade(request):
     context = {}
-    return render(request, 'aluno_index.html', context)
+    return render(request, 'aluno_faculdade.html', context)
+
+@area_student
+def cadastro_extensao(request):
+    context = {}
+    return render(request, 'aluno_outros_cursos.html', context)
+
+@area_student
+def cadastro_empregos_anteriores(request):
+    context = {}
+    return render(request, 'aluno_outros_empregos.html', context)
+
+@area_student
+def diario_aprendizado(request):
+    context = {}
+    return render(request, 'aluno_diario_aprendizado.html', context)
 
 
 @area_student

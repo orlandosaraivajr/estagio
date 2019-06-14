@@ -13,4 +13,9 @@ urlpatterns = [
     path('', views.home, name='aluno_home'),
     path('sobremim/', views.sobre_mim, name='aluno_sobre_mim'),
     path('contato/', views.cadastro_contato, name='aluno_contato'),
+    path('faculdade/', views.cadastro_faculdade, name='aluno_faculdade'),
+    path('outros_cursos/', views.cadastro_extensao, name='aluno_outros_cursos'),
+    path('empregos_anteriores/', views.cadastro_empregos_anteriores, name='aluno_outros_empregos'),
+    path('diario_aprendizado/', views.diario_aprendizado, name='aluno_diario_aprendizado'),
+
 ]

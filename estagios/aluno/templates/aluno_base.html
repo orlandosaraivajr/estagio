@@ -46,7 +46,7 @@
                 <i class="fas fa-address-card fa-fw"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Diário do Aprendizado</a>
+                <a class="dropdown-item" <a class="nav-link" href="{% url 'aluno:aluno_diario_aprendizado' %}">Diário do Aprendizado</a>
                 <a class="dropdown-item" href="#">Acessos</a>
             </div>
         </li>
@@ -88,22 +88,22 @@
                 <span>Contato</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" href="{% url 'aluno:aluno_faculdade' %}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Faculdade</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" href="{% url 'aluno:aluno_outros_cursos' %}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Outros cursos</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" href="{% url 'aluno:aluno_outros_empregos' %}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Empregos Anteriores</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" href="{% url 'aluno:aluno_diario_aprendizado' %}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Diário do aprendizado</span></a>
         </li>

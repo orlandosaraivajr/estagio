@@ -1,0 +1,34 @@
+{% extends "aluno_base.html" %}
+{% load staticfiles %}
+{% load static %}
+{% block content %}
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'aluno:aluno_home' %}">Painel de Controle</a>
+            </li>
+            <li class="breadcrumb-item active">Cursos extras e extensão</li>
+        </ol>
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Além do curso superior, quais outros cursos você realizou ?
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    SEU FORM AQUI
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+
+{% endblock %}
