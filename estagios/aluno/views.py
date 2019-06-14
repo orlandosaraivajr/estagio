@@ -44,9 +44,15 @@ def efetivar_cadastro_aluno(request):
 
 
 @area_student
-def cadastro_dados_pessoais(request):
+def sobre_mim(request):
     context = {}
-    return render(request, 'aluno_cadastro.html', context)
+    return render(request, 'aluno_sobre_mim.html', context)
+
+
+@area_student
+def cadastro_contato(request):
+    context = {}
+    return render(request, 'aluno_contato.html', context)
 
 
 @area_student
@@ -58,4 +64,4 @@ def home(request):
 @area_student
 def esqueceu_senha(request):
     context = {}
-    return render(request, 'aluno_cadastro.html', context)
+    return render(request, 'aluno_contato.html', context)

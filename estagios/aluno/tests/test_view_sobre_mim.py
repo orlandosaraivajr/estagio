@@ -3,8 +3,8 @@ from django.test import Client, TestCase
 
 from estagios.core.models import User
 
-view_in_test = 'aluno:aluno_cadastro_dados_pessoais'
-template_in_test = 'aluno_cadastro.html'
+view_in_test = 'aluno:aluno_sobre_mim'
+template_in_test = 'aluno_sobre_mim.html'
 
 
 class AlunoGet(TestCase):

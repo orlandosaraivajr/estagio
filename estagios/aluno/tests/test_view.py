@@ -4,14 +4,17 @@ from django.test import Client, TestCase
 from estagios.core.models import User
 
 view_template_list = [
-    ('aluno:aluno_cadastro_dados_pessoais',
-     'aluno_cadastro.html'),
+    ('aluno:aluno_contato',
+     'aluno_contato.html'),
+
+    ('aluno:aluno_sobre_mim',
+     'aluno_sobre_mim.html'),
 
     ('aluno:aluno_home',
      'aluno_index.html'),
 
     ('aluno:aluno_esqueceu_senha',
-     'aluno_cadastro.html')
+     'aluno_contato.html')
 ]
 
 
