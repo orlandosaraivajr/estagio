@@ -2,6 +2,7 @@ from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect, render
 
 from estagios.core.decorators import area_student
+from estagios.core.form import LoginForm
 from estagios.core.functions import auth_request
 from estagios.core.functions import registro_novo_aluno
 
@@ -29,16 +30,17 @@ def cadastro_inicial(request):
 
 
 def efetivar_cadastro_aluno(request):
-    try:
+    form = LoginForm(request.POST)
+    if not form.is_valid():
+        return render(request, 'aluno_login.html')
+    else:
         email = request.POST['username']
         password = request.POST['password']
-    except:
-        return render(request, 'aluno_login.html')
-    if registro_novo_aluno(email, password):
-        auth_request(request)
-        return redirect('aluno:aluno_home')
-    else:
-        return render(request, 'aluno_login.html')
+        if registro_novo_aluno(email, password):
+            auth_request(request)
+            return redirect('aluno:aluno_home')
+        else:
+            return render(request, 'aluno_login.html')
 
 
 @area_student
