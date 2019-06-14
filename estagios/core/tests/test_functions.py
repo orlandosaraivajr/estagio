@@ -1,7 +1,10 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.shortcuts import resolve_url as r
+from django.test import TestCase, RequestFactory
 
-from estagios.core.functions import authenticate, registro_novo_aluno
+from estagios.core.functions import authenticate
+from estagios.core.functions import registro_novo_aluno
+from estagios.core.functions import auth_request
 from estagios.core.models import User
 
 
@@ -50,3 +53,36 @@ class authenticate_OK_Test(TestCase):
     def test_auth_ok_2(self):
         user = User.objects.get(username='user@me.com')
         self.assertEqual(self.retorno, user)
+
+
+class auth_request_Test(TestCase):
+    def setUp(self):
+        self.request = RequestFactory()
+        self.view = 'aluno:aluno_login'
+
+    def test_data_ok_no_user_POST(self):
+        data = {
+            'username': 'eu@me.com',
+            'password': '123'
+        }
+        request = self.request.post(r(self.view), data)
+        self.assertFalse(auth_request(request))
+
+    def test_data_ok_user_ok_POST(self):
+        User = get_user_model()
+        User.objects.create_user(
+            'eu@me.com', 'eu@me.com', '123')
+        data = {
+            'username': 'eu@me.com',
+            'password': '123'
+        }
+        request = self.request.post(r(self.view), data)
+        from django.contrib.sessions.middleware import SessionMiddleware
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        self.assertTrue(auth_request(request))
+
+    def test_no_data_POST(self):
+        request = self.request.post(r(self.view))
+        self.assertFalse(auth_request(request))
