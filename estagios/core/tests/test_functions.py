@@ -1,9 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
+from estagios.core.functions import authenticate, registro_novo_aluno
 from estagios.core.models import User
-
-from estagios.core.functions import registro_novo_aluno, authenticate
 
 
 class registro_novo_aluno_Test(TestCase):
@@ -37,3 +36,17 @@ class authenticate_Fail_Test(TestCase):
 
     def test_null(self):
         self.assertFalse(self.retorno)
+
+
+class authenticate_OK_Test(TestCase):
+    def setUp(self):
+        registro_novo_aluno('user@me.com', 'segredo')
+        self.retorno = authenticate('user@me.com', 'segredo')
+
+    def test_auth_ok(self):
+        user = User.objects.get(email='user@me.com')
+        self.assertEqual(self.retorno, user)
+
+    def test_auth_ok_2(self):
+        user = User.objects.get(username='user@me.com')
+        self.assertEqual(self.retorno, user)
