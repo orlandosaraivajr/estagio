@@ -8,8 +8,7 @@ class CadastroFormTest(TestCase):
         self.form = CadastroForm()
 
     def test_form_has_fields(self):
-        expected = ['email', 'password']
-        expected = ['user', 'data_nascimento', 'sobre_voce']
+        expected = ['data_nascimento', 'sobre_voce']
         expected = expected + ['objetivos_profissionais', 'sexo', 'deficiencia']
         expected = expected + ['telefone', 'celular', 'telefone_recado']
         self.assertSequenceEqual(expected, list(self.form.fields))

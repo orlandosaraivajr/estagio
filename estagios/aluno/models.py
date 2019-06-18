@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 from estagios.core.models import TimeStampedModel, User
@@ -52,16 +54,20 @@ CHOICES_ESTADOS_BRASILEIROS = (
 class CadastroModel(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     data_nascimento = models.DateTimeField(
-        verbose_name='Data de Nascimento'
+        verbose_name='Data de Nascimento',
+        blank=False,
+        default=datetime.date(2000, 1, 1)
     )
     sobre_voce = models.TextField(
         verbose_name="Fale mais sobre você",
+        default='Sou uma pessoa que...',
         max_length=500,
         blank=False
     )
     objetivos_profissionais = models.TextField(
         verbose_name="Fale sobre seus objetivos profissionais",
         max_length=500,
+        default='Meus objetivos profissionais são ...',
         blank=False
     )
     sexo = models.CharField(

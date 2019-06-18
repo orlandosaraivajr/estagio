@@ -1,5 +1,10 @@
-from django.contrib.auth import login as auth_login
+from datetime import datetime
+
+import pytz
 from django.contrib.auth import get_user_model
+from django.contrib.auth import login as auth_login
+
+from estagios.aluno.models import CadastroModel
 
 
 def authenticate(username=None, password=None):
@@ -34,6 +39,11 @@ def registro_novo_aluno(email=None, password=None):
         novo_aluno = User.objects.create_user(
             email, email, password, is_student=True)
         novo_aluno.save()
+        cadastro = CadastroModel()
+        cadastro.user = novo_aluno
+
+        cadastro.data_nascimento = datetime(2000, 1, 1, 0, 0, 0, tzinfo=pytz.UTC)
+        cadastro.save()
         return True
     else:
         return False

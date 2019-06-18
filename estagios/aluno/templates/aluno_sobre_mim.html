@@ -13,19 +13,76 @@
             <li class="breadcrumb-item active">Sobre Mim</li>
         </ol>
 
-        <!-- DataTables Example -->
+   <!-- Formulário "Sobre Mim" -->
         <div class="card mb-3">
+            <form action="." novalidate method="POST">
+            {% csrf_token %}
             <div class="card-header">
                 <i class="fas fa-table"></i>
                 Fale um pouco sobre você
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    SEU FORM AQUI
+                  <div class="row">
+                    <div class="col-sm">
+                        <label for="{{ form.data_nascimento.id_for_label }}">{{ form.data_nascimento.label }}</label>
+                        {{ form.data_nascimento.errors }}
+                        {{ form.data_nascimento }}
+                    </div>
+                    <div class="col-sm">
+                        <label for="{{ form.sexo.id_for_label }}">{{ form.sexo.label }}</label>
+                        {{ form.sexo.errors }}
+                        {{ form.sexo }}
+
+                    </div>
+                    <div class="col-sm">
+                        <label for="{{ form.deficiencia.id_for_label }}">{{ form.deficiencia.label }}</label>
+                        {{ form.deficiencia.errors }}
+                        {{ form.deficiencia }}
+                    </div>
+                  </div>
+                    <br>
+                    <label for="{{ form.sobre_voce.id_for_label }}">
+                        {{ form.sobre_voce.label }}</label>
+                    {{ form.sobre_voce.errors }}
+                    {{ form.sobre_voce }}
+                    <br>
+                    <label for="{{ form.objetivos_profissionais.id_for_label }}">
+                        {{ form.objetivos_profissionais.label }}</label>
+                    {{ form.objetivos_profissionais.errors }}
+                    {{ form.objetivos_profissionais }}
+                  <br>
+                  <div class="row">
+                    <div class="col-sm">
+                    <label for="{{ form.telefone.id_for_label }}">
+                        {{ form.telefone.label }}</label><br>
+                        {{ form.telefone.errors }}
+                        {{ form.telefone }}
+                    </div>
+                    <div class="col-sm">
+                    <label for="{{ form.celular.id_for_label }}">
+                        {{ form.celular.label }}</label><br>
+                        {{ form.celular.errors }}
+                        {{ form.celular }}
+                    </div>
+                    <div class="col-sm">
+                    <label for="{{ form.telefone_recado.id_for_label }}">
+                        {{ form.telefone_recado.label }}</label><br>
+                    {{ form.telefone_recado.errors }}
+                    {{ form.telefone_recado }}
+                    </div>
+                  </div>
+                    <br><br>
                 </div>
+
+                <p class="btn-row">
+                    <input type="submit" value="Atualizar"/>
+                </p>
+
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </form>
         </div>
+
 
     </div>
     <!-- /.container-fluid -->

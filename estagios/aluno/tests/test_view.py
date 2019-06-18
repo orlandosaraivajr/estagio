@@ -1,6 +1,7 @@
 from django.shortcuts import resolve_url as r
 from django.test import Client, TestCase
 
+from estagios.core.functions import registro_novo_aluno
 from estagios.core.models import User
 
 view_template_list = [
@@ -63,12 +64,8 @@ class GetRedirectTestFollow(TestCase):
 class AlunoGet(TestCase):
     def setUp(self):
         self.client = Client()
-        User.objects.create_user(
-            'admin',
-            'eu@me.com',
-            '123',
-            is_student=True)
-        self.client.login(username='admin', password='123')
+        registro_novo_aluno('eu@me.com','123')
+        self.client.login(username='eu@me.com', password='123')
         self.resp_list = []
         for view_test in view_template_list:
             self.resp_list.append((
@@ -97,11 +94,11 @@ class NotAlunoGet(TestCase):
     def setUp(self):
         self.client = Client()
         User.objects.create_user(
-            'admin',
+            'eu@me.com',
             'eu@me.com',
             '123',
             is_student=False)
-        self.client.login(username='admin', password='123')
+        self.client.login(username='eu@me.com', password='123')
         self.resp_list = []
         for view_test in view_template_list:
             self.resp_list.append(
@@ -121,11 +118,11 @@ class NotAlunoGetFollow(TestCase):
     def setUp(self):
         self.client = Client()
         User.objects.create_user(
-            'admin',
+            'eu@me.com',
             'eu@me.com',
             '123',
             is_student=False)
-        self.client.login(username='admin', password='123')
+        self.client.login(username='eu@me.com', password='123')
         self.resp_list = []
         for view_test in view_template_list:
             self.resp_list.append(

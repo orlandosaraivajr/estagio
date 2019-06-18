@@ -1,6 +1,8 @@
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect, render
 
+from estagios.aluno.forms import CadastroForm
+from estagios.aluno.models import CadastroModel
 from estagios.core.decorators import area_student
 from estagios.core.form import LoginForm
 from estagios.core.functions import auth_request
@@ -51,8 +53,23 @@ def home(request):
 
 @area_student
 def sobre_mim(request):
-    context = {}
+    if request.method == "GET":
+        dados = CadastroModel.objects.get(
+            user=request.user
+        ).__dict__
+        context = {'form': CadastroForm(dados)}
+    else:
+        form = CadastroForm(request.POST)
+        if not form.is_valid():
+            context = {'form': form}
+        else:
+            CadastroModel.objects.update(**form.cleaned_data)
+            dados = CadastroModel.objects.get(
+                user=request.user
+                ).__dict__
+            context = {'form': CadastroForm(dados)}
     return render(request, 'aluno_sobre_mim.html', context)
+
 
 
 @area_student
