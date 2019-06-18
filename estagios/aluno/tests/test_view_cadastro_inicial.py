@@ -1,8 +1,6 @@
 from django.shortcuts import resolve_url as r
 from django.test import Client, TestCase
 
-from estagios.aluno.views import efetivar_cadastro_aluno
-from estagios.core.functions import auth_request
 from estagios.core.models import User
 
 view_in_test = 'aluno:aluno_cadastro_inicial'

@@ -27,7 +27,6 @@ class AlunoGet(TestCase):
         self.resp = self.client.get(r(view_in_test))
 
     def test_template(self):
-
         self.assertTemplateUsed(self.resp, template_in_test)
 
     def test_200_template(self):
@@ -35,7 +34,7 @@ class AlunoGet(TestCase):
 
     def test_html_template(self):
         tags = (
-            ('Estágio Nota 10', 1),
+            ('Estágio Nota 10', 2),
             ('Contato', 1),
             ('Faculdade', 1),
             ('Outros cursos', 1),
@@ -45,3 +44,5 @@ class AlunoGet(TestCase):
         for text, count in tags:
             with self.subTest():
                 self.assertContains(self.resp, text, count)
+
+

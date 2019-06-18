@@ -64,7 +64,7 @@ class GetRedirectTestFollow(TestCase):
 class AlunoGet(TestCase):
     def setUp(self):
         self.client = Client()
-        registro_novo_aluno('eu@me.com','123')
+        registro_novo_aluno('eu@me.com', '123')
         self.client.login(username='eu@me.com', password='123')
         self.resp_list = []
         for view_test in view_template_list:

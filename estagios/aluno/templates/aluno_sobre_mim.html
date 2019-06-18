@@ -40,10 +40,14 @@
                         {{ form.deficiencia.errors }}
                         {{ form.deficiencia }}
                     </div>
+
                   </div>
                     <br>
                     <label for="{{ form.sobre_voce.id_for_label }}">
                         {{ form.sobre_voce.label }}</label>
+                        {% if form.sobre_voce.errors %}
+                            {{ form.sobre_voce. }}
+                        {% endif %}
                     {{ form.sobre_voce.errors }}
                     {{ form.sobre_voce }}
                     <br>
@@ -74,11 +78,8 @@
                   </div>
                     <br><br>
                 </div>
-
-                <p class="btn-row">
-                    <input type="submit" value="Atualizar"/>
-                </p>
-
+                <br>
+                <button class="btn btn-primary btn-block" type="submit">Atualizar</button>
             </div>
             </form>
         </div>

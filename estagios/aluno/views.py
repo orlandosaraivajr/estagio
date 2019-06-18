@@ -66,10 +66,9 @@ def sobre_mim(request):
             CadastroModel.objects.update(**form.cleaned_data)
             dados = CadastroModel.objects.get(
                 user=request.user
-                ).__dict__
+            ).__dict__
             context = {'form': CadastroForm(dados)}
     return render(request, 'aluno_sobre_mim.html', context)
-
 
 
 @area_student

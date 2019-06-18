@@ -2,9 +2,9 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import resolve_url as r
 from django.test import TestCase, RequestFactory
 
+from estagios.core.functions import auth_request
 from estagios.core.functions import authenticate
 from estagios.core.functions import registro_novo_aluno
-from estagios.core.functions import auth_request
 from estagios.core.models import User
 
 
