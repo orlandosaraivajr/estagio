@@ -50,8 +50,8 @@ class CadastroFormTest(TestCase):
         from datetime import datetime
         import pytz
         valid = dict(data_nascimento=datetime(1981, 12, 30, 10, 20, 10, 127325, tzinfo=pytz.UTC),
-                     sobre_voce='12345678901',
-                     objetivos_profissionais='henrique@bastos.net',
+                     sobre_voce='Sou nota 10',
+                     objetivos_profissionais='quero ser rico',
                      sexo='1',
                      deficiencia='0',
                      telefone='19 9999-9999',
