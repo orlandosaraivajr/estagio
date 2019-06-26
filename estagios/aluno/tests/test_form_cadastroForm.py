@@ -1,11 +1,11 @@
 from django.test import TestCase
 
-from estagios.aluno.forms import CadastroForm
+from estagios.aluno.forms import SobreMimForm
 
 
 class CadastroFormTest(TestCase):
     def test_form_has_fields(self):
-        form = CadastroForm()
+        form = SobreMimForm()
         expected = ['data_nascimento', 'sobre_voce']
         expected = expected + ['objetivos_profissionais', 'sexo', 'deficiencia']
         expected = expected + ['telefone', 'celular', 'telefone_recado']
@@ -59,6 +59,6 @@ class CadastroFormTest(TestCase):
                      telefone_recado='19 9999-9999'
                      )
         data = dict(valid, **kwargs)
-        form = CadastroForm(data)
+        form = SobreMimForm(data)
         form.is_valid()
         return form

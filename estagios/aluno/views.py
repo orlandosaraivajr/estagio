@@ -1,12 +1,13 @@
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect, render
 
-from estagios.aluno.forms import CadastroForm
-from estagios.aluno.models import CadastroModel
+from estagios.aluno.forms import SobreMimForm, ContatoForm
+from estagios.aluno.models import CadastroModel, ContatoModel
 from estagios.core.decorators import area_student
-from estagios.core.form import LoginForm
+from estagios.core.form import LoginForm, NomeCompletoForm
 from estagios.core.functions import auth_request
 from estagios.core.functions import registro_novo_aluno
+from estagios.core.models import User
 
 
 def login(request):
@@ -45,6 +46,32 @@ def efetivar_cadastro_aluno(request):
             return render(request, 'aluno_login.html')
 
 
+def atualizar_dados_sobre_mim(request):
+    form = SobreMimForm(request.POST)
+    form_nome = NomeCompletoForm(request.POST)
+    form_nome.is_valid()
+    if not form.is_valid() and not form_nome.is_valid():
+        context = {'form': form,
+                   'formUsername': form_nome}
+    else:
+        CadastroModel.objects.update(**form.cleaned_data)
+        User.objects.update(**form_nome.cleaned_data)
+        dados = CadastroModel.objects.get(user=request.user).__dict__
+        dados_user = User.objects.get(email=request.user).__dict__
+        context = {'form': SobreMimForm(dados),
+                   'formUsername': NomeCompletoForm(dados_user)}
+    return context
+
+def atualizar_dados_contato(request):
+    form = ContatoForm(request.POST)
+    if not form.is_valid():
+        context = {'form': form}
+    else:
+        ContatoModel.objects.update(**form.cleaned_data)
+        dados = ContatoModel.objects.get(user=request.user).__dict__
+        context = {'form': ContatoForm(dados)}
+    return context
+
 @area_student
 def home(request):
     context = {}
@@ -54,26 +81,22 @@ def home(request):
 @area_student
 def sobre_mim(request):
     if request.method == "GET":
-        dados = CadastroModel.objects.get(
-            user=request.user
-        ).__dict__
-        context = {'form': CadastroForm(dados)}
+        dados = CadastroModel.objects.get(user=request.user).__dict__
+        dados_user = User.objects.get(email=request.user).__dict__
+        context = {'form': SobreMimForm(dados),
+                   'formUsername': NomeCompletoForm(dados_user)}
     else:
-        form = CadastroForm(request.POST)
-        if not form.is_valid():
-            context = {'form': form}
-        else:
-            CadastroModel.objects.update(**form.cleaned_data)
-            dados = CadastroModel.objects.get(
-                user=request.user
-            ).__dict__
-            context = {'form': CadastroForm(dados)}
+        context = atualizar_dados_sobre_mim(request)
     return render(request, 'aluno_sobre_mim.html', context)
 
 
 @area_student
 def cadastro_contato(request):
-    context = {}
+    if request.method == "GET":
+        dados = ContatoModel.objects.get(user=request.user).__dict__
+        context = {'form': ContatoForm(dados)}
+    else:
+        context = atualizar_dados_contato(request)
     return render(request, 'aluno_contato.html', context)
 
 

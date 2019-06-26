@@ -21,8 +21,14 @@
                 <i class="fas fa-table"></i>
                 Fale um pouco sobre você
             </div>
+            <br>
+            <div class="col-sm">
+                <label for="{{ formUsername.first_name.id_for_label }}">{{ formUsername.first_name.label }}</label>
+                {{ formUsername.first_name.errors }}
+                {{ formUsername.first_name }}
+            </div>
+
             <div class="card-body">
-                <div class="table-responsive">
                   <div class="row">
                     <div class="col-sm">
                         <label for="{{ form.data_nascimento.id_for_label }}">{{ form.data_nascimento.label }}</label>
@@ -86,7 +92,6 @@
 
 
     </div>
-    <!-- /.container-fluid -->
 
 
 {% endblock %}

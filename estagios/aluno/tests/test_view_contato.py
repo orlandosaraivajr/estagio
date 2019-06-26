@@ -1,6 +1,7 @@
 from django.shortcuts import resolve_url as r
 from django.test import Client, TestCase
 
+from estagios.aluno.models import ContatoModel
 from estagios.core.models import User
 
 view_in_test = 'aluno:aluno_contato'
@@ -15,6 +16,9 @@ class AlunoGet(TestCase):
             'eu@me.com',
             '123',
             is_student=True)
+        cadastro = ContatoModel()
+        cadastro.user = User.objects.get(email='eu@me.com')
+        cadastro.save()
         self.client.login(username='admin', password='123')
         self.resp = self.client.get(r(view_in_test))
 

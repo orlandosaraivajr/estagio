@@ -29,3 +29,34 @@ class LoginForm(ModelForm):
                 'required': ("Senha não pode ser em branco."),
             }
         }
+
+
+class NomeCompletoForm(ModelForm):
+    error_css_class = "error"
+
+    class Meta:
+        model = User
+        fields = ('first_name',)
+
+        labels = {
+            'first_name': 'Nome Completo',
+
+        }
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Preencha seu nome completo.'
+                       }
+            ),
+        }
+        error_messages = {
+            'first_name': {
+                'required': ("Não deixe este campo em branco. Informe seu nome completo."),
+            },
+        }
+
+    def clean_first_name(self):
+        if self.cleaned_data['first_name'] != '':
+            return self.cleaned_data['first_name']
+        return 'Nome em Branco'
