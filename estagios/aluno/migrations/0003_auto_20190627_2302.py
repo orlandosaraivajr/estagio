@@ -26,7 +26,8 @@ class Migration(migrations.Migration):
                 ('facebook', models.URLField(blank=True, default='', verbose_name='Facebook')),
                 ('portfolio', models.URLField(blank=True, default='', verbose_name='Portfolio')),
                 (
-                'user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                    'user',
+                    models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,

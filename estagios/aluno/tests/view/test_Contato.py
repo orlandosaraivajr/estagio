@@ -40,7 +40,12 @@ class AlunoGet(TestCase):
             ('Faculdade', 1),
             ('Outros cursos', 1),
             ('Empregos Anteriores', 1),
-            ('Sair', 3)
+            ('Sair', 3),
+            ('<form', 2),
+            ('</form>', 2),
+            ('<input', 8),
+            ('<select', 1),
+            ('type="submit"', 1),
         )
         for text, count in tags:
             with self.subTest():

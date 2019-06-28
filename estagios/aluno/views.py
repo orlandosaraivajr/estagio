@@ -74,6 +74,17 @@ def _atualizar_contato(request):
     return context
 
 
+def _atualizar_redes_sociais(request):
+    form = RedesSociaisForm(request.POST)
+    if not form.is_valid():
+        context = {'form': form}
+    else:
+        RedesSociaisModel.objects.update(**form.cleaned_data)
+        dados = RedesSociaisModel.objects.get(user=request.user).__dict__
+        context = {'form': RedesSociaisForm(dados)}
+    return context
+
+
 @area_student
 def home(request):
     context = {}
@@ -107,6 +118,8 @@ def redes_sociais(request):
     if request.method == "GET":
         dados = RedesSociaisModel.objects.get(user=request.user).__dict__
         context = {'form': RedesSociaisForm(dados)}
+    else:
+        context = _atualizar_redes_sociais(request)
     return render(request, 'aluno_redes_sociais.html', context)
 
 

@@ -41,6 +41,25 @@ class AlunoGet(TestCase):
         form = self.resp.context['form']
         self.assertIsInstance(form, SobreMimForm)
 
+    def test_html_template(self):
+        tags = (
+            ('Estágio Nota 10', 2),
+            ('Contato', 1),
+            ('Faculdade', 1),
+            ('Outros cursos', 1),
+            ('Empregos Anteriores', 1),
+            ('Sair', 3),
+            ('<form', 2),
+            ('</form>', 2),
+            ('<input', 3),
+            ('<select', 2),
+            ('<textarea', 2),
+            ('type="submit"', 1),
+        )
+        for text, count in tags:
+            with self.subTest():
+                self.assertContains(self.resp, text, count)
+
 
 class AlunoPostOK(TestCase):
     def setUp(self):
