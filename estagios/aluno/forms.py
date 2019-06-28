@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from estagios.aluno.models import (
     CHOICES_DEFICIENCIA, CHOICES_SEXO, SobreMimModel, ContatoModel,
     CHOICES_ESTADOS_BRASILEIROS, RedesSociaisModel,
-)
+    FaculdadeModel, CHOICES_SITUACAO_ACADEMICA)
 
 
 class SobreMimForm(ModelForm):
@@ -175,3 +175,57 @@ class RedesSociaisForm(ModelForm):
     class Meta:
         model = RedesSociaisModel
         fields = ()
+
+
+class FaculdadeForm(ModelForm):
+    error_css_class = "error"
+
+    class Meta:
+        model = FaculdadeModel
+        fields = ('curso', 'instituicao','situacao')
+        fields = fields + ('carga_horaria', 'data_inicio', 'data_fim')
+
+        labels = {
+            'curso': 'Nome do curso',
+            'instituicao': 'Instituição: ',
+            'situacao': 'Situação ',
+            'data_inicio': 'Data de início:',
+            'data_fim': 'Data encerramento / previsão:',
+            'carga_horaria': 'Carga Horária do curso:',
+        }
+        widgets = {
+            'curso': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Curso',
+            }),
+            'instituicao': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Faculdade / Universidade',
+            }),
+            'situacao': forms.Select(choices=CHOICES_SITUACAO_ACADEMICA,attrs={
+                                         'class': 'form-control'
+                                     }),
+            'data_inicio': forms.DateInput(attrs={
+                    'class': 'form-control fa fa-calendar',
+                    'placeholder': 'dd/mm/aaaa'
+                }),
+            'data_fim': forms.DateInput(attrs={
+                    'class': 'form-control fa fa-calendar',
+                    'placeholder': 'dd/mm/aaaa'
+                }),
+            'carga_horaria': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Carga horária do curso',
+            }),
+        }
+        error_messages = {
+            'data_inicio': {
+                'required': ("Digite uma data de início."),
+            },
+            'curso': {
+                'required': ("Digite o nome do curso"),
+            },
+            'instituicao': {
+                'required': ("Digite o nome da faculdade / universidade"),
+            }
+        }

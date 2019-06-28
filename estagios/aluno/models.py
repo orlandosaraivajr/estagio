@@ -1,5 +1,6 @@
 import datetime
 
+import pytz
 from django.db import models
 
 from estagios.core.models import TimeStampedModel, User
@@ -48,6 +49,11 @@ CHOICES_ESTADOS_BRASILEIROS = (
     ('SP', 'São Paulo'),
     ('SE', 'Sergipe'),
     ('TO', 'Tocantins')
+)
+CHOICES_SITUACAO_ACADEMICA = (
+    ('0', 'em andamento'),
+    ('1', 'concluído'),
+    ('2', 'não concluído')
 )
 
 
@@ -153,3 +159,39 @@ class RedesSociaisModel(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.user.is_student = True
         super(RedesSociaisModel, self).save(*args, **kwargs)
+
+
+class FaculdadeModel(TimeStampedModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    curso = models.CharField(
+        verbose_name='Curso', max_length=100,
+        blank=False, default=''
+    )
+    instituicao = models.CharField(
+        verbose_name='Curso', max_length=100,
+        blank=False, default=''
+    )
+    carga_horaria = models.IntegerField(
+        verbose_name='Carga Horária do curso',
+        blank=True, default='2400'
+    )
+    data_inicio = models.DateTimeField(
+        verbose_name='Início do curso',
+        blank=False,
+        default=datetime.date(2019, 1, 1)
+    )
+    data_fim = models.DateTimeField(
+        verbose_name='Previsão de término',
+        blank=True,
+        default=datetime.datetime(2020, 1, 1, 0, 0, 0, 127325, tzinfo=pytz.UTC)
+    )
+    situacao = models.CharField(
+        verbose_name='Situação',
+        max_length=10,
+        choices=CHOICES_SITUACAO_ACADEMICA,
+        default='0'
+    )
+
+    def save(self, *args, **kwargs):
+        self.user.is_student = True
+        super(FaculdadeModel, self).save(*args, **kwargs)

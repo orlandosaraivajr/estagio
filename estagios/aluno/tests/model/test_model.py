@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from estagios.aluno.models import (
     CHOICES_DEFICIENCIA, CHOICES_ESTADOS_BRASILEIROS, CHOICES_SEXO, ContatoModel, RedesSociaisModel, SobreMimModel,
-)
+    FaculdadeModel, CHOICES_SITUACAO_ACADEMICA)
 from estagios.core.models import User
 
 
@@ -167,6 +167,51 @@ class RedesSociaisModelTest(TestCase):
     def test_portfolio(self):
         portfolio = self.cadastro.portfolio
         self.assertEqual(portfolio, '')
+
+    def test_usuario_estudante(self):
+        self.assertTrue(self.user.is_student)
+
+    def test_usuario_nao_eh_professor(self):
+        self.assertFalse(self.user.is_teacher)
+
+    def test_usuario_nao_eh_empresa(self):
+        self.assertFalse(self.user.is_worker)
+
+
+class FaculdadeModelTest(TestCase):
+    def setUp(self):
+        self.user = userBuilder()
+        self.inicio = datetime(2019, 1, 1, 10, 20, 10, 127325, tzinfo=pytz.UTC)
+        self.cadastro = FaculdadeModel(
+            user=self.user,
+            data_inicio=self.inicio,
+            curso='nome_do_curso',
+            instituicao='fho',
+        )
+        self.cadastro.save()
+
+    def test_created(self):
+        self.assertTrue(FaculdadeModel.objects.exists())
+
+    def test_created_at(self):
+        self.assertIsInstance(self.cadastro.criado_em, datetime)
+
+    def test_modified_at(self):
+        self.assertIsInstance(self.cadastro.modificado_em, datetime)
+
+    def test_data_inicio(self):
+        inicio = self.cadastro.data_inicio
+        self.assertEqual(inicio, self.inicio)
+
+    def test_curso(self):
+        self.assertEqual(self.cadastro.curso, 'nome_do_curso')
+
+    def test_instituicao(self):
+        self.assertEqual(self.cadastro.instituicao, 'fho')
+
+    def test_situacao_padrao(self):
+        situacao = dict(CHOICES_SITUACAO_ACADEMICA)[self.cadastro.situacao]
+        self.assertEqual(situacao, 'em andamento')
 
     def test_usuario_estudante(self):
         self.assertTrue(self.user.is_student)
