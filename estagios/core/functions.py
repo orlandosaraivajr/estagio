@@ -41,7 +41,6 @@ def registro_novo_aluno(email=None, password=None):
         novo_aluno.save()
         cadastro = SobreMimModel()
         cadastro.user = novo_aluno
-
         cadastro.data_nascimento = datetime(2000, 1, 1, 0, 0, 0, tzinfo=pytz.UTC)
         cadastro.save()
         cadastro = ContatoModel()

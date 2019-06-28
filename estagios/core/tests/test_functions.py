@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import resolve_url as r
 from django.test import TestCase, RequestFactory
 
+from estagios.aluno.models import ContatoModel, SobreMimModel, RedesSociaisModel
 from estagios.core.functions import auth_request
 from estagios.core.functions import authenticate
 from estagios.core.functions import registro_novo_aluno
@@ -10,7 +11,6 @@ from estagios.core.models import User
 
 class registro_novo_aluno_Test(TestCase):
     def setUp(self):
-        User = get_user_model()
         registro_novo_aluno('user@me.com', 'segredo')
 
     def test_created(self):
@@ -31,6 +31,15 @@ class registro_novo_aluno_Test(TestCase):
     def test_empresa(self):
         username = User.objects.get(username='user@me.com')
         self.assertFalse(username.is_worker)
+
+    def test_ContatoModel(self):
+        self.assertTrue(ContatoModel.objects.exists())
+
+    def test_SobreMimModel(self):
+        self.assertTrue(SobreMimModel.objects.exists())
+
+    def test_RedesSociaisModel(self):
+        self.assertTrue(RedesSociaisModel.objects.exists())
 
 
 class authenticate_Fail_Test(TestCase):
