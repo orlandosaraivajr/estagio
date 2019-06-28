@@ -1,18 +1,19 @@
 from django import forms
 from django.forms import ModelForm
 
-from estagios.aluno.models import CHOICES_DEFICIENCIA, CHOICES_SEXO, CadastroModel, ContatoModel, \
-    CHOICES_ESTADOS_BRASILEIROS
+from estagios.aluno.models import (
+    CHOICES_DEFICIENCIA, CHOICES_SEXO, SobreMimModel, ContatoModel,
+    CHOICES_ESTADOS_BRASILEIROS, RedesSociaisModel,
+    )
 
 
 class SobreMimForm(ModelForm):
     error_css_class = "error"
 
     class Meta:
-        model = CadastroModel
+        model = SobreMimModel
         fields = ('data_nascimento', 'sobre_voce')
         fields = fields + ('objetivos_profissionais', 'sexo', 'deficiencia')
-        fields = fields + ('telefone', 'celular', 'telefone_recado')
 
         labels = {
             'data_nascimento': 'Data de Nascimento:',
@@ -20,9 +21,6 @@ class SobreMimForm(ModelForm):
             'objetivos_profissionais': 'Fale sobre seus objetivos profissionais',
             'sexo': 'Sexo: ',
             'deficiencia': 'Possui alguma limitação ? ',
-            'telefone': 'Telefone Fixo:',
-            'celular': 'Telefone celular:',
-            'telefone_recado': 'Telefone para recado:',
         }
         widgets = {
             'data_nascimento': forms.DateInput(
@@ -51,9 +49,6 @@ class SobreMimForm(ModelForm):
                 'rows': 4,
                 'cols': 15
             }),
-            'telefone': forms.TextInput(attrs={'class': 'form-control'}),
-            'celular': forms.TextInput(attrs={'class': 'form-control'}),
-            'telefone_recado': forms.TextInput(attrs={'class': 'form-control'}),
         }
         error_messages = {
             'data_nascimento': {
@@ -67,56 +62,15 @@ class SobreMimForm(ModelForm):
             }
         }
 
-    def clean_data_nascimento(self):
-        return self.cleaned_data['data_nascimento']
-
 
 class ContatoForm(ModelForm):
     error_css_class = "error"
-    github = forms.URLField(
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Preencha com o link do seu GitHub (não obrigatório)',
-                'class': 'form-control'
-                   }
-        ),
-        required=False,
-    )
-
-    facebook = forms.URLField(
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Preencha com o link do seu Facebook (não obrigatório)',
-                'class': 'form-control'
-            }
-        ),
-        required=False,
-    )
-
-    linkedin = forms.URLField(
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Preencha com o link do seu Linkedin (não obrigatório)',
-                'class': 'form-control'
-            }
-        ),
-        required=False,
-    )
-
-    portfolio = forms.URLField(
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Preencha com o link do seu portfolio (não obrigatório)',
-                'class': 'form-control'
-            }
-        ),
-        required=False,
-    )
 
     class Meta:
         model = ContatoModel
         fields = ('endereco', 'endereco_numero', 'endereco_complemento')
         fields = fields + ('endereco_cidade', 'endereco_estado')
+        fields = fields + ('telefone', 'celular', 'telefone_recado')
 
         labels = {
             'endereco': 'Endereço: ',
@@ -124,6 +78,9 @@ class ContatoForm(ModelForm):
             'endereco_complemento': 'Complemento:',
             'endereco_cidade': 'Cidade:',
             'endereco_estado': 'Estado:',
+            'telefone': 'Telefone:',
+            'celular': 'Celular:',
+            'telefone_recado': 'Telefone Recado:',
         }
         widgets = {
             'endereco': forms.TextInput(attrs={
@@ -146,7 +103,18 @@ class ContatoForm(ModelForm):
                                             attrs={
                                                 'class': 'form-control'
                                             }),
-
+            'telefone': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Telefone',
+                }),
+            'celular': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Celular',
+                }),
+            'telefone_recado': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Telefone para Contato',
+                }),
         }
         error_messages = {
             'endereco': {
@@ -160,5 +128,50 @@ class ContatoForm(ModelForm):
             },
         }
 
-    def clean_endereco(self):
-        return self.cleaned_data['endereco']
+
+class RedesSociaisForm(ModelForm):
+    error_css_class = "error"
+
+    github = forms.URLField(
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Preencha com o link do seu GitHub (não obrigatório)',
+                'class': 'form-control'
+                }
+            ),
+        required=False,
+        )
+
+    facebook = forms.URLField(
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Preencha com o link do seu Facebook (não obrigatório)',
+                'class': 'form-control'
+                }
+            ),
+        required=False,
+        )
+
+    linkedin = forms.URLField(
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Preencha com o link do seu Linkedin (não obrigatório)',
+                'class': 'form-control'
+                }
+            ),
+        required=False,
+        )
+
+    portfolio = forms.URLField(
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Preencha com o link do seu portfolio (não obrigatório)',
+                'class': 'form-control'
+                }
+            ),
+        required=False,
+        )
+
+    class Meta:
+        model = RedesSociaisModel
+        fields = ()

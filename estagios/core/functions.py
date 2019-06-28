@@ -4,7 +4,7 @@ import pytz
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login as auth_login
 
-from estagios.aluno.models import CadastroModel, ContatoModel
+from estagios.aluno.models import SobreMimModel, ContatoModel, RedesSociaisModel
 
 
 def authenticate(username=None, password=None):
@@ -39,12 +39,15 @@ def registro_novo_aluno(email=None, password=None):
         novo_aluno = User.objects.create_user(
             email, email, password, is_student=True)
         novo_aluno.save()
-        cadastro = CadastroModel()
+        cadastro = SobreMimModel()
         cadastro.user = novo_aluno
 
         cadastro.data_nascimento = datetime(2000, 1, 1, 0, 0, 0, tzinfo=pytz.UTC)
         cadastro.save()
         cadastro = ContatoModel()
+        cadastro.user = novo_aluno
+        cadastro.save()
+        cadastro = RedesSociaisModel()
         cadastro.user = novo_aluno
         cadastro.save()
         return True

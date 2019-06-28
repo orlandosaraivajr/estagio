@@ -8,7 +8,7 @@ class ContatoFormTest(TestCase):
         form = ContatoForm()
         expected = ['endereco', 'endereco_numero', 'endereco_complemento']
         expected = expected + ['endereco_cidade', 'endereco_estado']
-        expected = expected + ['github', 'facebook', 'linkedin', 'portfolio']
+        expected = expected + ['telefone', 'celular', 'telefone_recado']
         self.assertSequenceEqual(expected, list(form.fields))
 
     def test_obrigatorio_endereco(self):
@@ -27,19 +27,19 @@ class ContatoFormTest(TestCase):
         form = self.make_validated_form(endereco_estado='')
         self.assertFormErrorCode(form, 'endereco_estado', 'required')
 
-    def test_necessario_informar_endereco(self):
+    def test_necessario_endereco(self):
         form = self.make_validated_form(endereco='')
         self.assertListEqual(['endereco'], list(form.errors))
 
-    def test_necessario_informar_endereco_numero(self):
+    def test_validar_endereco_numero(self):
         form = self.make_validated_form(endereco_numero='')
         self.assertListEqual(['endereco_numero'], list(form.errors))
 
-    def test_necessario_informar_endereco_cidade(self):
+    def test_validar_endereco_cidade(self):
         form = self.make_validated_form(endereco_cidade='')
         self.assertListEqual(['endereco_cidade'], list(form.errors))
 
-    def test_necessario_informar_endereco_estado(self):
+    def test_validar_endereco_estado(self):
         form = self.make_validated_form(endereco_estado='')
         self.assertListEqual(['endereco_estado'], list(form.errors))
 
@@ -65,3 +65,4 @@ class ContatoFormTest(TestCase):
         form = ContatoForm(data)
         form.is_valid()
         return form
+

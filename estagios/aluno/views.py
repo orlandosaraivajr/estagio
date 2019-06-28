@@ -1,8 +1,8 @@
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect, render
 
-from estagios.aluno.forms import SobreMimForm, ContatoForm
-from estagios.aluno.models import CadastroModel, ContatoModel
+from estagios.aluno.forms import SobreMimForm, ContatoForm, RedesSociaisForm
+from estagios.aluno.models import SobreMimModel, ContatoModel, RedesSociaisModel
 from estagios.core.decorators import area_student
 from estagios.core.form import LoginForm, NomeCompletoForm
 from estagios.core.functions import auth_request
@@ -54,9 +54,9 @@ def atualizar_dados_sobre_mim(request):
         context = {'form': form,
                    'formUsername': form_nome}
     else:
-        CadastroModel.objects.update(**form.cleaned_data)
+        SobreMimModel.objects.update(**form.cleaned_data)
         User.objects.update(**form_nome.cleaned_data)
-        dados = CadastroModel.objects.get(user=request.user).__dict__
+        dados = SobreMimModel.objects.get(user=request.user).__dict__
         dados_user = User.objects.get(email=request.user).__dict__
         context = {'form': SobreMimForm(dados),
                    'formUsername': NomeCompletoForm(dados_user)}
@@ -81,7 +81,7 @@ def home(request):
 @area_student
 def sobre_mim(request):
     if request.method == "GET":
-        dados = CadastroModel.objects.get(user=request.user).__dict__
+        dados = SobreMimModel.objects.get(user=request.user).__dict__
         dados_user = User.objects.get(email=request.user).__dict__
         context = {'form': SobreMimForm(dados),
                    'formUsername': NomeCompletoForm(dados_user)}
@@ -98,6 +98,13 @@ def cadastro_contato(request):
     else:
         context = atualizar_dados_contato(request)
     return render(request, 'aluno_contato.html', context)
+
+@area_student
+def redes_sociais(request):
+    if request.method == "GET":
+        dados = RedesSociaisModel.objects.get(user=request.user).__dict__
+        context = {'form': RedesSociaisForm(dados)}
+    return render(request, 'aluno_redes_sociais.html', context)
 
 
 @area_student

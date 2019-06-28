@@ -8,7 +8,6 @@ class CadastroFormTest(TestCase):
         form = SobreMimForm()
         expected = ['data_nascimento', 'sobre_voce']
         expected = expected + ['objetivos_profissionais', 'sexo', 'deficiencia']
-        expected = expected + ['telefone', 'celular', 'telefone_recado']
         self.assertSequenceEqual(expected, list(form.fields))
 
     def test_obrigatorio_objetivos_profissionais(self):

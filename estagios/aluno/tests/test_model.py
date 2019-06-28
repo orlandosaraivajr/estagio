@@ -4,8 +4,8 @@ import pytz
 from django.test import TestCase
 
 from estagios.aluno.models import (
-    CHOICES_DEFICIENCIA, CHOICES_ESTADOS_BRASILEIROS, CHOICES_SEXO, CadastroModel, ContatoModel,
-)
+    CHOICES_DEFICIENCIA, CHOICES_ESTADOS_BRASILEIROS, CHOICES_SEXO, ContatoModel, RedesSociaisModel, SobreMimModel,
+    )
 from estagios.core.models import User
 
 
@@ -16,23 +16,23 @@ def userBuilder():
         password='segredo',
         first_name='Orlando',
         last_name='Saraiva Jr',
-    )
+        )
 
 
-class CadastroModelTest(TestCase):
+class SobreMimModelTest(TestCase):
     def setUp(self):
         self.user = userBuilder()
         self.nascimento = datetime(1981, 12, 30, 10, 20, 10, 127325, tzinfo=pytz.UTC)
-        self.cadastro = CadastroModel(
+        self.cadastro = SobreMimModel(
             user=self.user,
             data_nascimento=self.nascimento,
             sobre_voce='O melhor profissional do mundo',
             objetivos_profissionais='Quero dominar o mundo',
-        )
+            )
         self.cadastro.save()
 
     def test_created(self):
-        self.assertTrue(CadastroModel.objects.exists())
+        self.assertTrue(SobreMimModel.objects.exists())
 
     def test_created_at(self):
         self.assertIsInstance(self.cadastro.criado_em, datetime)
@@ -60,18 +60,6 @@ class CadastroModelTest(TestCase):
         sexo = dict(CHOICES_SEXO)[self.cadastro.sexo]
         self.assertEqual(sexo, 'MASCULINO')
 
-    def test_telefone_padrao(self):
-        telefone = self.cadastro.telefone
-        self.assertEqual(telefone, '')
-
-    def test_celular_padrao(self):
-        celular = self.cadastro.celular
-        self.assertEqual(celular, '')
-
-    def test_telefone_recado_padrao(self):
-        telefone_recado = self.cadastro.telefone_recado
-        self.assertEqual(telefone_recado, '')
-
     def test_usuario_estudante(self):
         self.assertTrue(self.user.is_student)
 
@@ -87,20 +75,76 @@ class ContatoModelTest(TestCase):
         self.user = userBuilder()
         self.cadastro = ContatoModel(
             user=self.user,
-            github="https://github.com/orlandosaraivajr",
-            linkedin="http://www.linkedIn.com",
-            facebook="http://www.facebook.com.br",
             endereco='Rua XYZ',
             endereco_numero='150',
-            # endereco_complemento = '',
             endereco_cidade='Rio Claro',
-            # endereco_estado = 'SP',
-
-        )
+            )
         self.cadastro.save()
 
     def test_created(self):
         self.assertTrue(ContatoModel.objects.exists())
+
+    def test_created_at(self):
+        self.assertIsInstance(self.cadastro.criado_em, datetime)
+
+    def test_modified_at(self):
+        self.assertIsInstance(self.cadastro.modificado_em, datetime)
+
+    def test_celular_padrao(self):
+        celular = self.cadastro.celular
+        self.assertEqual(celular, '')
+
+    def test_telefone_padrao(self):
+        telefone = self.cadastro.telefone
+        self.assertEqual(telefone, '')
+
+    def test_telefone_recado_padrao(self):
+        telefone_recado = self.cadastro.telefone_recado
+        self.assertEqual(telefone_recado, '')
+
+    def test_endereco(self):
+        endereco = self.cadastro.endereco
+        self.assertEqual(endereco, 'Rua XYZ')
+
+    def test_endereco_numero(self):
+        endereco_numero = self.cadastro.endereco_numero
+        self.assertEqual(endereco_numero, '150')
+
+    def test_endereco_complemento(self):
+        endereco_complemento = self.cadastro.endereco_complemento
+        self.assertEqual(endereco_complemento, '')
+
+    def test_endereco_complemento(self):
+        endereco_complemento = self.cadastro.endereco_complemento
+        self.assertEqual(endereco_complemento, '')
+
+    def test_estado_padrao(self):
+        estado = dict(CHOICES_ESTADOS_BRASILEIROS)[self.cadastro.endereco_estado]
+        self.assertEqual(estado, 'São Paulo')
+
+    def test_usuario_estudante(self):
+        self.assertTrue(self.user.is_student)
+
+    def test_usuario_nao_eh_professor(self):
+        self.assertFalse(self.user.is_teacher)
+
+    def test_usuario_nao_eh_empresa(self):
+        self.assertFalse(self.user.is_worker)
+
+
+class RedesSociaisModelTest(TestCase):
+    def setUp(self):
+        self.user = userBuilder()
+        self.cadastro = RedesSociaisModel(
+            user=self.user,
+            github="https://github.com/orlandosaraivajr",
+            linkedin="http://www.linkedIn.com",
+            facebook="http://www.facebook.com.br",
+            )
+        self.cadastro.save()
+
+    def test_created(self):
+        self.assertTrue(RedesSociaisModel.objects.exists())
 
     def test_created_at(self):
         self.assertIsInstance(self.cadastro.criado_em, datetime)
@@ -123,26 +167,6 @@ class ContatoModelTest(TestCase):
     def test_portfolio(self):
         portfolio = self.cadastro.portfolio
         self.assertEqual(portfolio, '')
-
-    def test_endereco(self):
-        endereco = self.cadastro.endereco
-        self.assertEqual(endereco, 'Rua XYZ')
-
-    def test_endereco_numero(self):
-        endereco_numero = self.cadastro.endereco_numero
-        self.assertEqual(endereco_numero, '150')
-
-    def test_endereco_complemento(self):
-        endereco_complemento = self.cadastro.endereco_complemento
-        self.assertEqual(endereco_complemento, '')
-
-    def test_endereco_complemento(self):
-        endereco_complemento = self.cadastro.endereco_complemento
-        self.assertEqual(endereco_complemento, '')
-
-    def test_estado_padrao(self):
-        estado = dict(CHOICES_ESTADOS_BRASILEIROS)[self.cadastro.endereco_estado]
-        self.assertEqual(estado, 'São Paulo')
 
     def test_usuario_estudante(self):
         self.assertTrue(self.user.is_student)

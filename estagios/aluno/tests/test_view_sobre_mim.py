@@ -5,7 +5,7 @@ from django.shortcuts import resolve_url as r
 from django.test import Client, TestCase
 
 from estagios.aluno.forms import SobreMimForm
-from estagios.aluno.models import CadastroModel
+from estagios.aluno.models import SobreMimModel
 from estagios.core.functions import registro_novo_aluno
 from estagios.core.models import User
 
@@ -21,7 +21,7 @@ class AlunoGet(TestCase):
             'eu@me.com',
             '123',
             is_student=True)
-        cadastro = CadastroModel()
+        cadastro = SobreMimModel()
         cadastro.user = User.objects.get(email='eu@me.com')
         cadastro.data_nascimento = datetime(2000, 1, 1, 0, 0, 0, tzinfo=pytz.UTC)
         cadastro.save()
@@ -66,12 +66,12 @@ class AlunoPostOK(TestCase):
 
     def test_atualizado_sobre_voce(self):
         user = User.objects.get(username='eu@me.com')
-        armazenado = CadastroModel.objects.get(user=user)
+        armazenado = SobreMimModel.objects.get(user=user)
         self.assertEqual('Sou nota 10', armazenado.sobre_voce)
 
     def test_atualizado_objetivos_profissionais(self):
         user = User.objects.get(username='eu@me.com')
-        armazenado = CadastroModel.objects.get(user=user)
+        armazenado = SobreMimModel.objects.get(user=user)
         self.assertEqual('quero ser rico', armazenado.objetivos_profissionais)
 
     def test_template(self):
@@ -111,12 +111,12 @@ class AlunoPostFail(TestCase):
 
     def test_nao_atualizar_sobre_voce(self):
         user = User.objects.get(username='eu@me.com')
-        armazenado = CadastroModel.objects.get(user=user)
+        armazenado = SobreMimModel.objects.get(user=user)
         self.assertEqual('Sou uma pessoa que...', armazenado.sobre_voce)
 
     def test_nao_atualizar_objetivos_profissionais(self):
         user = User.objects.get(username='eu@me.com')
-        armazenado = CadastroModel.objects.get(user=user)
+        armazenado = SobreMimModel.objects.get(user=user)
         self.assertEqual('Meus objetivos profissionais são ...',
                          armazenado.objetivos_profissionais)
 
