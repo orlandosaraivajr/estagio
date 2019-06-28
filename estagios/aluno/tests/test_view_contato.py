@@ -31,7 +31,7 @@ class AlunoGet(TestCase):
     def test_html_template(self):
         tags = (
             ('Estágio Nota 10', 2),
-            ('Contato', 2),
+            ('Contato', 3),
             ('Faculdade', 1),
             ('Outros cursos', 1),
             ('Empregos Anteriores', 1),
