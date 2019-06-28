@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from estagios.aluno.models import (
     CHOICES_DEFICIENCIA, CHOICES_ESTADOS_BRASILEIROS, CHOICES_SEXO, ContatoModel, RedesSociaisModel, SobreMimModel,
-    )
+)
 from estagios.core.models import User
 
 
@@ -16,7 +16,7 @@ def userBuilder():
         password='segredo',
         first_name='Orlando',
         last_name='Saraiva Jr',
-        )
+    )
 
 
 class SobreMimModelTest(TestCase):
@@ -28,7 +28,7 @@ class SobreMimModelTest(TestCase):
             data_nascimento=self.nascimento,
             sobre_voce='O melhor profissional do mundo',
             objetivos_profissionais='Quero dominar o mundo',
-            )
+        )
         self.cadastro.save()
 
     def test_created(self):
@@ -78,7 +78,7 @@ class ContatoModelTest(TestCase):
             endereco='Rua XYZ',
             endereco_numero='150',
             endereco_cidade='Rio Claro',
-            )
+        )
         self.cadastro.save()
 
     def test_created(self):
@@ -140,7 +140,7 @@ class RedesSociaisModelTest(TestCase):
             github="https://github.com/orlandosaraivajr",
             linkedin="http://www.linkedIn.com",
             facebook="http://www.facebook.com.br",
-            )
+        )
         self.cadastro.save()
 
     def test_created(self):

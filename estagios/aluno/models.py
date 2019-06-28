@@ -8,7 +8,7 @@ CHOICES_SEXO = (
     ('1', 'MASCULINO'),
     ('2', 'FEMININO'),
     ('0', 'OUTROS'),
-    )
+)
 
 CHOICES_DEFICIENCIA = (
     ('1', 'FÍSICA'),
@@ -18,7 +18,7 @@ CHOICES_DEFICIENCIA = (
     ('5', 'MÚLTIPLA'),
     ('6', 'READAPTADO'),
     ('0', 'NENHUMA'),
-    )
+)
 
 CHOICES_ESTADOS_BRASILEIROS = (
     ('AC', 'Acre'),
@@ -48,7 +48,7 @@ CHOICES_ESTADOS_BRASILEIROS = (
     ('SP', 'São Paulo'),
     ('SE', 'Sergipe'),
     ('TO', 'Tocantins')
-    )
+)
 
 
 class SobreMimModel(TimeStampedModel):
@@ -57,31 +57,31 @@ class SobreMimModel(TimeStampedModel):
         verbose_name='Data de Nascimento',
         blank=False,
         default=datetime.date(2000, 1, 1)
-        )
+    )
     sobre_voce = models.TextField(
         verbose_name="Fale mais sobre você",
         default='Sou uma pessoa que...',
         max_length=500,
         blank=False
-        )
+    )
     objetivos_profissionais = models.TextField(
         verbose_name="Fale sobre seus objetivos profissionais",
         max_length=500,
         default='Meus objetivos profissionais são ...',
         blank=False
-        )
+    )
     sexo = models.CharField(
         verbose_name="Sexo",
         max_length=10,
         choices=CHOICES_SEXO,
         default='1'
-        )
+    )
     deficiencia = models.CharField(
         verbose_name="Deficiência",
         max_length=10,
         choices=CHOICES_DEFICIENCIA,
         default='0'
-        )
+    )
 
     def save(self, *args, **kwargs):
         self.user.is_student = True
@@ -95,48 +95,48 @@ class ContatoModel(TimeStampedModel):
         max_length=100,
         blank=False,
         default=""
-        )
+    )
     endereco_numero = models.CharField(
         verbose_name="Número",
         max_length=5,
         blank=False,
         default=""
-        )
+    )
     endereco_complemento = models.CharField(
         verbose_name="complemento",
         max_length=30,
         blank=True,
         default=""
-        )
+    )
     endereco_cidade = models.CharField(
         verbose_name="cidade",
         max_length=30,
         blank=False,
         default=""
-        )
+    )
     endereco_estado = models.CharField(
         verbose_name="estado",
         max_length=20,
         blank=False,
         choices=CHOICES_ESTADOS_BRASILEIROS,
         default='SP'
-        )
+    )
 
     telefone = models.CharField(
         verbose_name="Telefone",
         max_length=16,
         blank=True
-        )
+    )
     celular = models.CharField(
         verbose_name="Celular",
         max_length=16,
         blank=True
-        )
+    )
     telefone_recado = models.CharField(
         verbose_name="Telefone para recados",
         max_length=16,
         blank=True
-        )
+    )
 
     def save(self, *args, **kwargs):
         self.user.is_student = True

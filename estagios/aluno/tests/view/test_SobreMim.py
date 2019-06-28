@@ -37,7 +37,7 @@ class AlunoGet(TestCase):
     def test_csrf(self):
         self.assertContains(self.resp, 'csrfmiddlewaretoken')
 
-    def test_has_form(self):
+    def test_form(self):
         form = self.resp.context['form']
         self.assertIsInstance(form, SobreMimForm)
 
@@ -47,32 +47,51 @@ class AlunoPostOK(TestCase):
         registro_novo_aluno('eu@me.com', '123')
         self.client = Client()
         self.client.login(username='eu@me.com', password='123')
-        data = dict(first_name='José da Silva',
-                    data_nascimento='30/12/1981',
-                    sobre_voce='Sou nota 10',
-                    objetivos_profissionais='quero ser rico',
-                    sexo='1',
-                    deficiencia='0',
-                    telefone='19 9999-9999',
-                    celular='19 9999-9999',
-                    telefone_recado='19 9999-9999'
-                    )
-        self.resp = self.client.post(r(view_in_test), data)
+        self.data = dict(first_name='José da Silva',
+                         data_nascimento='30/12/1981',
+                         sobre_voce='Sou nota 10',
+                         objetivos_profissionais='quero ser rico',
+                         sexo='1',
+                         deficiencia='0',
+                         )
+        self.resp = self.client.post(r(view_in_test), self.data)
 
-    def test_atualizado_nome_completo(self):
+    def test_nome_completo(self):
         user = User.objects.get(username='eu@me.com')
         nome_completo = user.first_name
-        self.assertEqual('José da Silva', nome_completo)
+        self.assertEqual(self.data['first_name'], nome_completo)
 
-    def test_atualizado_sobre_voce(self):
+    def test_sobre_voce(self):
         user = User.objects.get(username='eu@me.com')
         armazenado = SobreMimModel.objects.get(user=user)
-        self.assertEqual('Sou nota 10', armazenado.sobre_voce)
+        self.assertEqual(
+            self.data['sobre_voce'],
+            armazenado.sobre_voce
+        )
 
-    def test_atualizado_objetivos_profissionais(self):
+    def test_objetivos_profissionais(self):
         user = User.objects.get(username='eu@me.com')
         armazenado = SobreMimModel.objects.get(user=user)
-        self.assertEqual('quero ser rico', armazenado.objetivos_profissionais)
+        self.assertEqual(
+            self.data['objetivos_profissionais'],
+            armazenado.objetivos_profissionais
+        )
+
+    def test_sexo(self):
+        user = User.objects.get(username='eu@me.com')
+        armazenado = SobreMimModel.objects.get(user=user)
+        self.assertEqual(
+            self.data['sexo'],
+            armazenado.sexo
+        )
+
+    def test_deficiencia(self):
+        user = User.objects.get(username='eu@me.com')
+        armazenado = SobreMimModel.objects.get(user=user)
+        self.assertEqual(
+            self.data['deficiencia'],
+            armazenado.deficiencia
+        )
 
     def test_template(self):
         self.assertTemplateUsed(self.resp, template_in_test)
@@ -83,7 +102,7 @@ class AlunoPostOK(TestCase):
     def test_csrf(self):
         self.assertContains(self.resp, 'csrfmiddlewaretoken')
 
-    def test_has_form(self):
+    def test_form(self):
         form = self.resp.context['form']
         self.assertIsInstance(form, SobreMimForm)
 
@@ -98,9 +117,6 @@ class AlunoPostFail(TestCase):
                     objetivos_profissionais='',
                     sexo='1',
                     deficiencia='0',
-                    telefone='19 9999-9999',
-                    celular='19 9999-9999',
-                    telefone_recado='19 9999-9999'
                     )
         self.resp = self.client.post(r(view_in_test), data)
 
@@ -129,6 +145,6 @@ class AlunoPostFail(TestCase):
     def test_csrf(self):
         self.assertContains(self.resp, 'csrfmiddlewaretoken')
 
-    def test_has_form(self):
+    def test_form(self):
         form = self.resp.context['form']
         self.assertIsInstance(form, SobreMimForm)

@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from estagios.aluno.models import (
     CHOICES_DEFICIENCIA, CHOICES_SEXO, SobreMimModel, ContatoModel,
     CHOICES_ESTADOS_BRASILEIROS, RedesSociaisModel,
-    )
+)
 
 
 class SobreMimForm(ModelForm):
@@ -106,15 +106,15 @@ class ContatoForm(ModelForm):
             'telefone': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Telefone',
-                }),
+            }),
             'celular': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Celular',
-                }),
+            }),
             'telefone_recado': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Telefone para Contato',
-                }),
+            }),
         }
         error_messages = {
             'endereco': {
@@ -137,40 +137,40 @@ class RedesSociaisForm(ModelForm):
             attrs={
                 'placeholder': 'Preencha com o link do seu GitHub (não obrigatório)',
                 'class': 'form-control'
-                }
-            ),
+            }
+        ),
         required=False,
-        )
+    )
 
     facebook = forms.URLField(
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Preencha com o link do seu Facebook (não obrigatório)',
                 'class': 'form-control'
-                }
-            ),
+            }
+        ),
         required=False,
-        )
+    )
 
     linkedin = forms.URLField(
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Preencha com o link do seu Linkedin (não obrigatório)',
                 'class': 'form-control'
-                }
-            ),
+            }
+        ),
         required=False,
-        )
+    )
 
     portfolio = forms.URLField(
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Preencha com o link do seu portfolio (não obrigatório)',
                 'class': 'form-control'
-                }
-            ),
+            }
+        ),
         required=False,
-        )
+    )
 
     class Meta:
         model = RedesSociaisModel

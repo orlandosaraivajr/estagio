@@ -47,7 +47,7 @@ class NomeCompletoForm(ModelForm):
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Preencha seu nome completo.'
-                       }
+                }
             ),
         }
         error_messages = {

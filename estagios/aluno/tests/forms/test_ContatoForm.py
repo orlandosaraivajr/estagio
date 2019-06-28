@@ -65,4 +65,3 @@ class ContatoFormTest(TestCase):
         form = ContatoForm(data)
         form.is_valid()
         return form
-

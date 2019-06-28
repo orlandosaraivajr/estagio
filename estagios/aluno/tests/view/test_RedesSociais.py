@@ -1,11 +1,11 @@
 from django.shortcuts import resolve_url as r
 from django.test import Client, TestCase
 
-from estagios.aluno.models import ContatoModel
+from estagios.aluno.models import RedesSociaisModel
 from estagios.core.models import User
 
-view_in_test = 'aluno:aluno_contato'
-template_in_test = 'aluno_contato.html'
+view_in_test = 'aluno:aluno_redes_sociais'
+template_in_test = 'aluno_redes_sociais.html'
 
 
 class AlunoGet(TestCase):
@@ -16,7 +16,7 @@ class AlunoGet(TestCase):
             'eu@me.com',
             '123',
             is_student=True)
-        cadastro = ContatoModel()
+        cadastro = RedesSociaisModel()
         cadastro.user = User.objects.get(email='eu@me.com')
         cadastro.save()
         self.client.login(username='admin', password='123')
@@ -28,10 +28,13 @@ class AlunoGet(TestCase):
     def test_200_template(self):
         self.assertEqual(200, self.resp.status_code)
 
+    def test_csrf(self):
+        self.assertContains(self.resp, 'csrfmiddlewaretoken')
+
     def test_html_template(self):
         tags = (
             ('Estágio Nota 10', 2),
-            ('Contato', 3),
+            ('Contato', 1),
             ('Faculdade', 1),
             ('Outros cursos', 1),
             ('Empregos Anteriores', 1),

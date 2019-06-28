@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from estagios.aluno.forms import RedesSociaisForm
 
 

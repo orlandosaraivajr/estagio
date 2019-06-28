@@ -29,10 +29,10 @@ def cadastro_inicial(request):
     if request.method == "GET":
         return render(request, 'aluno_cadastro_inicial.html')
     else:
-        return efetivar_cadastro_aluno(request)
+        return _efetivar_cadastro(request)
 
 
-def efetivar_cadastro_aluno(request):
+def _efetivar_cadastro(request):
     form = LoginForm(request.POST)
     if not form.is_valid():
         return render(request, 'aluno_login.html')
@@ -46,7 +46,7 @@ def efetivar_cadastro_aluno(request):
             return render(request, 'aluno_login.html')
 
 
-def atualizar_dados_sobre_mim(request):
+def _atualizar_dados_sobre_mim(request):
     form = SobreMimForm(request.POST)
     form_nome = NomeCompletoForm(request.POST)
     form_nome.is_valid()
@@ -62,7 +62,8 @@ def atualizar_dados_sobre_mim(request):
                    'formUsername': NomeCompletoForm(dados_user)}
     return context
 
-def atualizar_dados_contato(request):
+
+def _atualizar_contato(request):
     form = ContatoForm(request.POST)
     if not form.is_valid():
         context = {'form': form}
@@ -71,6 +72,7 @@ def atualizar_dados_contato(request):
         dados = ContatoModel.objects.get(user=request.user).__dict__
         context = {'form': ContatoForm(dados)}
     return context
+
 
 @area_student
 def home(request):
@@ -86,18 +88,19 @@ def sobre_mim(request):
         context = {'form': SobreMimForm(dados),
                    'formUsername': NomeCompletoForm(dados_user)}
     else:
-        context = atualizar_dados_sobre_mim(request)
+        context = _atualizar_dados_sobre_mim(request)
     return render(request, 'aluno_sobre_mim.html', context)
 
 
 @area_student
-def cadastro_contato(request):
+def contato(request):
     if request.method == "GET":
         dados = ContatoModel.objects.get(user=request.user).__dict__
         context = {'form': ContatoForm(dados)}
     else:
-        context = atualizar_dados_contato(request)
+        context = _atualizar_contato(request)
     return render(request, 'aluno_contato.html', context)
+
 
 @area_student
 def redes_sociais(request):
