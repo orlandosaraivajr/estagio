@@ -4,7 +4,6 @@
 {% block content %}
 
     <div class="container-fluid">
-
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -13,22 +12,25 @@
             <li class="breadcrumb-item active">Universidades e Faculdades</li>
         </ol>
 
-        <!-- DataTables Example -->
+        <!-- Div Dados -->
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Em que curso você estuda ?
+                Em que curso você estuda / estudou ?
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    SEU FORM AQUI
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <form action="{% url 'aluno:aluno_faculdade_cadastro' %}" method="GET">
+                            <button class="btn btn-primary btn-block" type="submit">Cadastrar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-
     </div>
-    <!-- /.container-fluid -->
-
 
 {% endblock %}

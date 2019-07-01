@@ -1,7 +1,7 @@
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect, render
 
-from estagios.aluno.forms import SobreMimForm, ContatoForm, RedesSociaisForm
+from estagios.aluno.forms import SobreMimForm, ContatoForm, RedesSociaisForm, FaculdadeForm
 from estagios.aluno.models import SobreMimModel, ContatoModel, RedesSociaisModel
 from estagios.core.decorators import area_student
 from estagios.core.form import LoginForm, NomeCompletoForm
@@ -124,10 +124,18 @@ def redes_sociais(request):
 
 
 @area_student
-def cadastro_faculdade(request):
+def faculdade(request):
     context = {}
     return render(request, 'aluno_faculdade.html', context)
 
+
+@area_student
+def faculdade_cadastro(request):
+    if request.method == "GET":
+        context = {'form': FaculdadeForm()}
+    else:
+        context = {}
+    return render(request, 'aluno_faculdade_cadastrar.html', context)
 
 @area_student
 def cadastro_extensao(request):
