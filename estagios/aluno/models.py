@@ -1,7 +1,7 @@
 import datetime
 
-import pytz
 from django.db import models
+from django.utils import timezone
 
 from estagios.core.models import TimeStampedModel, User
 
@@ -162,7 +162,8 @@ class RedesSociaisModel(TimeStampedModel):
 
 
 class FaculdadeModel(TimeStampedModel):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    acrescimo = datetime.timedelta(2 * 365)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     curso = models.CharField(
         verbose_name='Curso', max_length=100,
         blank=False, default=''
@@ -183,7 +184,7 @@ class FaculdadeModel(TimeStampedModel):
     data_fim = models.DateTimeField(
         verbose_name='Previsão de término',
         blank=True,
-        default=datetime.datetime(2020, 1, 1, 0, 0, 0, 127325, tzinfo=pytz.UTC)
+        default=timezone.now() + acrescimo
     )
     situacao = models.CharField(
         verbose_name='Situação',
@@ -191,6 +192,11 @@ class FaculdadeModel(TimeStampedModel):
         choices=CHOICES_SITUACAO_ACADEMICA,
         default='0'
     )
+
+    def data_com_acrescido(self, **datetime_qualquer):
+        if not datetime_qualquer:
+            datetime_qualquer = timezone.now()
+        return datetime_qualquer + self.acrescimo
 
     def save(self, *args, **kwargs):
         self.user.is_student = True

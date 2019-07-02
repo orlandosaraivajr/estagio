@@ -2,7 +2,7 @@ from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect, render
 
 from estagios.aluno.forms import SobreMimForm, ContatoForm, RedesSociaisForm, FaculdadeForm
-from estagios.aluno.models import SobreMimModel, ContatoModel, RedesSociaisModel
+from estagios.aluno.models import SobreMimModel, ContatoModel, RedesSociaisModel, FaculdadeModel
 from estagios.core.decorators import area_student
 from estagios.core.form import LoginForm, NomeCompletoForm
 from estagios.core.functions import auth_request
@@ -85,6 +85,20 @@ def _atualizar_redes_sociais(request):
     return context
 
 
+def _cadastrar_faculdade(request):
+    form = FaculdadeForm(request.POST)
+    form.is_valid()
+    if not form.is_valid():
+        context = {
+            'form': form,
+            }
+    else:
+        faculdade = FaculdadeModel(**form.cleaned_data)
+        faculdade.user = request.user
+        faculdade.save()
+        context = {'form': FaculdadeForm()}
+    return context
+
 @area_student
 def home(request):
     context = {}
@@ -134,7 +148,7 @@ def faculdade_cadastro(request):
     if request.method == "GET":
         context = {'form': FaculdadeForm()}
     else:
-        context = {}
+        context = _cadastrar_faculdade(request)
     return render(request, 'aluno_faculdade_cadastrar.html', context)
 
 @area_student
