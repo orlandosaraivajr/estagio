@@ -182,7 +182,7 @@ class FaculdadeForm(ModelForm):
 
     class Meta:
         model = FaculdadeModel
-        fields = ('curso', 'instituicao','situacao')
+        fields = ('curso', 'instituicao', 'situacao')
         fields = fields + ('carga_horaria', 'data_inicio', 'data_fim')
 
         labels = {
@@ -202,17 +202,17 @@ class FaculdadeForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Faculdade / Universidade',
             }),
-            'situacao': forms.Select(choices=CHOICES_SITUACAO_ACADEMICA,attrs={
-                                         'class': 'form-control'
-                                     }),
+            'situacao': forms.Select(choices=CHOICES_SITUACAO_ACADEMICA, attrs={
+                'class': 'form-control'
+            }),
             'data_inicio': forms.DateInput(attrs={
-                    'class': 'form-control fa fa-calendar',
-                    'placeholder': 'dd/mm/aaaa'
-                }),
+                'class': 'form-control fa fa-calendar',
+                'placeholder': 'dd/mm/aaaa'
+            }),
             'data_fim': forms.DateInput(attrs={
-                    'class': 'form-control fa fa-calendar',
-                    'placeholder': 'dd/mm/aaaa'
-                }),
+                'class': 'form-control fa fa-calendar',
+                'placeholder': 'dd/mm/aaaa'
+            }),
             'carga_horaria': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Carga horária do curso',
@@ -229,3 +229,18 @@ class FaculdadeForm(ModelForm):
                 'required': ("Digite o nome da faculdade / universidade"),
             }
         }
+
+    def clean_data_fim(self):
+        if not self.cleaned_data['data_fim']:
+            return False
+        return self.cleaned_data['data_fim']
+
+    def clean_situacao(self):
+        if not self.cleaned_data['situacao']:
+            return False
+        return self.cleaned_data['situacao']
+
+    def clean_carga_horaria(self):
+        if not self.cleaned_data['carga_horaria']:
+            return False
+        return self.cleaned_data['carga_horaria']

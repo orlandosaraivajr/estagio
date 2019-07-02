@@ -89,15 +89,16 @@ def _cadastrar_faculdade(request):
     form = FaculdadeForm(request.POST)
     form.is_valid()
     if not form.is_valid():
-        context = {
-            'form': form,
-            }
+        url = 'aluno_faculdade_cadastrar.html'
+        context = {'form': form}
     else:
         faculdade = FaculdadeModel(**form.cleaned_data)
         faculdade.user = request.user
         faculdade.save()
-        context = {'form': FaculdadeForm()}
-    return context
+        url = 'aluno_faculdade.html'
+        context = {}
+    return context, url
+
 
 @area_student
 def home(request):
@@ -146,10 +147,12 @@ def faculdade(request):
 @area_student
 def faculdade_cadastro(request):
     if request.method == "GET":
+        url = 'aluno_faculdade_cadastrar.html'
         context = {'form': FaculdadeForm()}
     else:
-        context = _cadastrar_faculdade(request)
-    return render(request, 'aluno_faculdade_cadastrar.html', context)
+        context, url = _cadastrar_faculdade(request)
+    return render(request, url, context)
+
 
 @area_student
 def cadastro_extensao(request):

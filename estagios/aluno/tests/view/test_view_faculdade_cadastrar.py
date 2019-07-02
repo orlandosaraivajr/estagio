@@ -40,6 +40,7 @@ class AlunoGet(TestCase):
             with self.subTest():
                 self.assertContains(self.resp, text, count)
 
+
 class AlunoPostOK(TestCase):
     def setUp(self):
         registro_novo_aluno('eu@me.com', '123')
@@ -47,13 +48,16 @@ class AlunoPostOK(TestCase):
         self.client.login(username='eu@me.com', password='123')
         self.data = dict(data_inicio='01/12/2019',
                          data_fim='02/11/2020',
-                     curso='nome_do_curso',
-                     instituicao='fho',
-                     situacao='0',
-                     carga_horaria='2400',
-                     )
+                         curso='nome_do_curso',
+                         instituicao='fho',
+                         situacao='0',
+                         carga_horaria='2400',
+                         )
         self.resp = self.client.post(r(view_in_test), self.data)
         self.user = User.objects.get(username='eu@me.com')
+
+    def test_created(self):
+        self.assertTrue(FaculdadeModel.objects.exists())
 
     def test_data_inicio(self):
         armazenado = FaculdadeModel.objects.get(user=self.user)
@@ -68,6 +72,24 @@ class AlunoPostOK(TestCase):
         self.assertEqual(2020, armazenado.data_fim.year)
 
     def test_template(self):
+        self.assertTemplateUsed(self.resp, 'aluno_faculdade.html')
+
+    def test_200_template(self):
+        self.assertEqual(200, self.resp.status_code)
+
+class AlunoPostFail(TestCase):
+    def setUp(self):
+        registro_novo_aluno('eu@me.com', '123')
+        self.client = Client()
+        self.client.login(username='eu@me.com', password='123')
+        self.data = {}
+        self.resp = self.client.post(r(view_in_test), self.data)
+        self.user = User.objects.get(username='eu@me.com')
+
+    def test_created(self):
+        self.assertFalse(FaculdadeModel.objects.exists())
+
+    def test_template(self):
         self.assertTemplateUsed(self.resp, template_in_test)
 
     def test_200_template(self):
@@ -79,6 +101,3 @@ class AlunoPostOK(TestCase):
     def test_form(self):
         form = self.resp.context['form']
         self.assertIsInstance(form, FaculdadeForm)
-
-
-
