@@ -25,7 +25,7 @@ def logout(request):
     return render(request, 'aluno_login.html')
 
 
-def cadastro_inicial(request):
+def _cadastro_inicial(request):
     if request.method == "GET":
         return render(request, 'aluno_cadastro_inicial.html')
     else:
@@ -46,7 +46,7 @@ def _efetivar_cadastro(request):
             return render(request, 'aluno_login.html')
 
 
-def _atualizar_dados_sobre_mim(request):
+def _sobre_mim_atualizar(request):
     form = SobreMimForm(request.POST)
     form_nome = NomeCompletoForm(request.POST)
     form_nome.is_valid()
@@ -63,7 +63,7 @@ def _atualizar_dados_sobre_mim(request):
     return context
 
 
-def _atualizar_contato(request):
+def _contato_atualizar(request):
     form = ContatoForm(request.POST)
     if not form.is_valid():
         context = {'form': form}
@@ -74,7 +74,7 @@ def _atualizar_contato(request):
     return context
 
 
-def _atualizar_redes_sociais(request):
+def _redes_sociais_atualizar(request):
     form = RedesSociaisForm(request.POST)
     if not form.is_valid():
         context = {'form': form}
@@ -92,7 +92,7 @@ def _faculdade_index(request):
     return context, url
 
 
-def _cadastrar_faculdade(request):
+def _faculdade_cadastrar(request):
     form = FaculdadeForm(request.POST)
     form.is_valid()
     if not form.is_valid():
@@ -106,7 +106,7 @@ def _cadastrar_faculdade(request):
     return context, url
 
 
-def _cadastrar_faculdade_editar(request):
+def _faculdade_editar(request):
     try:
         pk = request.POST['pk']
         faculdade = FaculdadeModel.objects.get(pk=pk).__dict__
@@ -139,7 +139,7 @@ def sobre_mim(request):
         context = {'form': SobreMimForm(dados),
                    'formUsername': NomeCompletoForm(dados_user)}
     else:
-        context = _atualizar_dados_sobre_mim(request)
+        context = _sobre_mim_atualizar(request)
     return render(request, 'aluno_sobre_mim.html', context)
 
 
@@ -149,7 +149,7 @@ def contato(request):
         dados = ContatoModel.objects.get(user=request.user).__dict__
         context = {'form': ContatoForm(dados)}
     else:
-        context = _atualizar_contato(request)
+        context = _contato_atualizar(request)
     return render(request, 'aluno_contato.html', context)
 
 
@@ -159,7 +159,7 @@ def redes_sociais(request):
         dados = RedesSociaisModel.objects.get(user=request.user).__dict__
         context = {'form': RedesSociaisForm(dados)}
     else:
-        context = _atualizar_redes_sociais(request)
+        context = _redes_sociais_atualizar(request)
     return render(request, 'aluno_redes_sociais.html', context)
 
 
@@ -175,7 +175,7 @@ def faculdade_cadastro(request):
         url = 'aluno_faculdade_cadastrar.html'
         context = {'form': FaculdadeForm()}
     else:
-        context, url = _cadastrar_faculdade(request)
+        context, url = _faculdade_cadastrar(request)
     return render(request, url, context)
 
 
@@ -184,7 +184,18 @@ def faculdade_editar(request):
     if request.method == "GET":
         context, url = _faculdade_index(request)
     else:
-        context, url = _cadastrar_faculdade_editar(request)
+        context, url = _faculdade_editar(request)
+    return render(request, url, context)
+
+
+@area_student
+def faculdade_excluir(request):
+    if request.method == "GET":
+        context, url = _faculdade_index(request)
+    else:
+        pk = request.POST['chave_primaria']
+        FaculdadeModel.objects.get(pk=pk).delete()
+        context, url = _faculdade_index(request)
     return render(request, url, context)
 
 

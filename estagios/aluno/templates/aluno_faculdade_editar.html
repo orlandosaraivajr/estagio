@@ -57,17 +57,30 @@
                         </div>
                     </div>
                     <br>
-            <div class="row">
-                <div class="col-sm-2">
-                </div>
-                <div class="col-sm-8">
-                    <button class="btn btn-primary btn-block" type="submit">Editar</button>
-                </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            <button class="btn btn-primary btn-block" type="submit">Editar</button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <form action="{% url 'aluno:aluno_faculdade_excluir' %}" novalidate method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ pk }}" name="chave_primaria">
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            <button class="btn btn-danger btn-block" type="submit">Excluir</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            </form>
+            <div class="card-footer small text-muted">Editar / Excluir o curso cadastrado anteriormente.</div>
         </div>
-    <div class="card-footer small text-muted">Edite o curso cadastrado anteriormente.</div>
-    </div>
     </div>
 
 {% endblock %}

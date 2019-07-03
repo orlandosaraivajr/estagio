@@ -51,7 +51,7 @@ class AlunoPostOK(TestCase):
                          data_fim='02/02/2020',
                          curso='novo_curso',
                          instituicao='nova_instituição',
-                         situacao='1',carga_horaria='3600',
+                         situacao='1', carga_horaria='3600',
                          chave_primaria=1,
                          )
         self.cadastro = FaculdadeModel(

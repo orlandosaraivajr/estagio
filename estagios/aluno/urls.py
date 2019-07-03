@@ -7,7 +7,7 @@ app_name = 'aluno'
 urlpatterns = [
     path('login/', views.login, name='aluno_login'),
     path('logout/', views.logout, name='aluno_logout'),
-    path('cadastro_inicial/', views.cadastro_inicial, name='aluno_cadastro_inicial'),
+    path('cadastro_inicial/', views._cadastro_inicial, name='aluno_cadastro_inicial'),
     path('esqueci_senha/', views.esqueceu_senha, name='aluno_esqueceu_senha'),
 
     path('', views.home, name='aluno_home'),
@@ -18,6 +18,7 @@ urlpatterns = [
     path('faculdade/', views.faculdade, name='aluno_faculdade'),
     path('faculdade/cadastro/', views.faculdade_cadastro, name='aluno_faculdade_cadastro'),
     path('faculdade/editar/', views.faculdade_editar, name='aluno_faculdade_editar'),
+    path('faculdade/excluir/', views.faculdade_excluir, name='aluno_faculdade_excluir'),
 
     path('outros_cursos/', views.cadastro_extensao, name='aluno_outros_cursos'),
     path('empregos_anteriores/', views.cadastro_empregos_anteriores, name='aluno_outros_empregos'),

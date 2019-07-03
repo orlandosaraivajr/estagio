@@ -111,12 +111,12 @@ class AlunoPost_duas_faculdades_um_usuario(TestCase):
         self.client = Client()
         self.client.login(username='eu@me.com', password='123')
         self.data1 = dict(data_inicio='01/01/2001', data_fim='02/11/2005',
-                         curso='nome_do_curso_1', instituicao='fho',
-                         situacao='0', carga_horaria='2400')
+                          curso='nome_do_curso_1', instituicao='fho',
+                          situacao='0', carga_horaria='2400')
         self.resp = self.client.post(r(view_in_test), self.data1)
         self.data2 = dict(data_inicio='01/01/2006', data_fim='02/11/2009',
-                         curso='nome_do_curso_2', instituicao='fho',
-                         situacao='0', carga_horaria='2400')
+                          curso='nome_do_curso_2', instituicao='fho',
+                          situacao='0', carga_horaria='2400')
         self.resp = self.client.post(r(view_in_test), self.data2)
 
     def test_created(self):
@@ -130,6 +130,7 @@ class AlunoPost_duas_faculdades_um_usuario(TestCase):
         query_set = self.resp.context['faculdades']
         self.assertEqual(len(query_set), 2)
 
+
 class AlunoPost_duas_faculdades_dois_usuarios(TestCase):
     def setUp(self):
         registro_novo_aluno('eu@me.com', '123')
@@ -137,13 +138,13 @@ class AlunoPost_duas_faculdades_dois_usuarios(TestCase):
         self.client = Client()
         self.client.login(username='eu@me.com', password='123')
         self.data1 = dict(data_inicio='01/01/2001', data_fim='02/11/2005',
-                         curso='nome_do_curso_1', instituicao='fho',
-                         situacao='0', carga_horaria='2400')
+                          curso='nome_do_curso_1', instituicao='fho',
+                          situacao='0', carga_horaria='2400')
         self.resp = self.client.post(r(view_in_test), self.data1)
         self.client.login(username='eu2@me.com', password='1234')
         self.data2 = dict(data_inicio='01/01/2006', data_fim='02/11/2009',
-                         curso='nome_do_curso_2', instituicao='fho',
-                         situacao='0', carga_horaria='2400')
+                          curso='nome_do_curso_2', instituicao='fho',
+                          situacao='0', carga_horaria='2400')
         self.resp = self.client.post(r(view_in_test), self.data2)
         self.user = User.objects.get(username='eu2@me.com')
 

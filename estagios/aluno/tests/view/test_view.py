@@ -12,6 +12,8 @@ view_template_list = [
 
     ('aluno:aluno_faculdade', 'aluno_faculdade.html'),
     ('aluno:aluno_faculdade_cadastro', 'aluno_faculdade_cadastrar.html'),
+    ('aluno:aluno_faculdade_editar', 'aluno_faculdade.html'),
+    ('aluno:aluno_faculdade_excluir', 'aluno_faculdade.html'),
 
     ('aluno:aluno_outros_cursos', 'aluno_outros_cursos.html'),
     ('aluno:aluno_outros_empregos', 'aluno_outros_empregos.html'),

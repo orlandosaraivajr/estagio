@@ -32,7 +32,8 @@ class Migration(migrations.Migration):
                  models.CharField(choices=[('0', 'em andamento'), ('1', 'concluído'), ('2', 'não concluído')],
                                   default='1', max_length=10, verbose_name='Situação')),
                 (
-                'user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                    'user',
+                    models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
