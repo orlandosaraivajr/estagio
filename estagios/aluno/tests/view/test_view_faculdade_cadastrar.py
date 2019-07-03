@@ -77,6 +77,7 @@ class AlunoPostOK(TestCase):
     def test_200_template(self):
         self.assertEqual(200, self.resp.status_code)
 
+
 class AlunoPostFail(TestCase):
     def setUp(self):
         registro_novo_aluno('eu@me.com', '123')

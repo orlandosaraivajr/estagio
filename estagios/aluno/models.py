@@ -198,6 +198,9 @@ class FaculdadeModel(TimeStampedModel):
             datetime_qualquer = timezone.now()
         return datetime_qualquer + self.acrescimo
 
+    def __str__(self):
+        return self.curso
+
     def save(self, *args, **kwargs):
         self.user.is_student = True
         super(FaculdadeModel, self).save(*args, **kwargs)

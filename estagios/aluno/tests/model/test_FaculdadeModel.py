@@ -61,3 +61,6 @@ class FaculdadeModelTest(TestCase):
 
     def test_usuario_nao_eh_empresa(self):
         self.assertFalse(self.user.is_worker)
+
+    def test_retorno__str__(self):
+        self.assertEqual(str(self.cadastro), 'nome_do_curso')
