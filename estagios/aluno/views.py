@@ -1,5 +1,4 @@
 from django.contrib.auth import logout as auth_logout
-from django.http import Http404
 from django.shortcuts import redirect, render
 
 from estagios.aluno.forms import SobreMimForm, ContatoForm, RedesSociaisForm, FaculdadeForm
@@ -86,6 +85,13 @@ def _atualizar_redes_sociais(request):
     return context
 
 
+def _faculdade_index(request):
+    url = 'aluno_faculdade.html'
+    faculdades = FaculdadeModel.objects.filter(user=request.user)
+    context = {'faculdades': faculdades}
+    return context, url
+
+
 def _cadastrar_faculdade(request):
     form = FaculdadeForm(request.POST)
     form.is_valid()
@@ -96,8 +102,26 @@ def _cadastrar_faculdade(request):
         faculdade = FaculdadeModel(**form.cleaned_data)
         faculdade.user = request.user
         faculdade.save()
-        url = 'aluno_faculdade.html'
-        context = {}
+        context, url = _faculdade_index(request)
+    return context, url
+
+
+def _cadastrar_faculdade_editar(request):
+    try:
+        pk = request.POST['pk']
+        faculdade = FaculdadeModel.objects.get(pk=pk).__dict__
+        form = FaculdadeForm(faculdade)
+        url = 'aluno_faculdade_editar.html'
+        context = {'form': form, 'pk': pk}
+    except:
+        pk = request.POST['chave_primaria']
+        form = FaculdadeForm(request.POST)
+        if not form.is_valid():
+            context, url = _faculdade_index(request)
+        else:
+            faculdade = FaculdadeModel.objects.filter(pk=pk)
+            faculdade.update(**form.cleaned_data)
+            context, url = _faculdade_index(request)
     return context, url
 
 
@@ -141,9 +165,7 @@ def redes_sociais(request):
 
 @area_student
 def faculdade(request):
-    url = 'aluno_faculdade.html'
-    faculdades = FaculdadeModel.objects.all()
-    context = {'faculdades':faculdades}
+    context, url = _faculdade_index(request)
     return render(request, url, context)
 
 
@@ -160,33 +182,9 @@ def faculdade_cadastro(request):
 @area_student
 def faculdade_editar(request):
     if request.method == "GET":
-        url = 'aluno_faculdade.html'
-        faculdades = FaculdadeModel.objects.all()
-        context = {'faculdades': faculdades}
+        context, url = _faculdade_index(request)
     else:
-        try:
-            pk = request.POST['pk']
-            faculdade = FaculdadeModel.objects.get(pk=pk).__dict__
-            form = FaculdadeForm(faculdade)
-            url = 'aluno_faculdade_editar.html'
-            context = {
-                'form': form,
-                'pk': pk
-            }
-        except :
-            pk = request.POST['chave_primaria']
-            form = FaculdadeForm(request.POST)
-            if not form.is_valid():
-                url = 'aluno_faculdade.html'
-                faculdades = FaculdadeModel.objects.all()
-                context = {'faculdades': faculdades}
-            else:
-                faculdade = FaculdadeModel.objects.filter(pk=pk)
-                faculdade.update(**form.cleaned_data)
-                url = 'aluno_faculdade.html'
-                faculdades = FaculdadeModel.objects.all()
-                context = {'faculdades': faculdades}
-
+        context, url = _cadastrar_faculdade_editar(request)
     return render(request, url, context)
 
 
